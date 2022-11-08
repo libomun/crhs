@@ -1,0 +1,63 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block content %}
+<div class = "container">
+<!-- Select news type option and search SurgeCon news bar-->
+    <div class="row mt-4">
+       <div class="col-2">
+        <select class="form-select" aria-label="Default select example" onchange="location = this.value;">
+          <option value="{% url 'news:all_news_list' %}">All news</option>
+          <option value="{% url 'news:rural360_news_list' %}">Rural360</option>
+          <option value="{% url 'news:sixforsix_news_list' %}">6for6</option>
+          <option selected value="{% url 'news:surgecon_news_list' %}">surgecon</option>
+        </select>
+       </div>
+       <div class="col-10">
+        <form class="d-flex" role="search" action="{% url 'news:surgecon_news_search' %}" method="get">
+            <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="q", required="required"/>
+            <button class="btn btn-outline-dark" type="submit">Search</button>
+        </form>
+       </div>
+    </div> <!-- eEd select and search-->
+
+ <!-- SurgeCon news list-->
+    <div>
+      {% for news in page_obj %}
+        <div class="card mt-3 mb-3" >
+          <div class="row g-0">
+            <div class="col-md-2">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                     <image xlink:href="{{ news.news_img.url }}" x="0" y="5%" height="100%" width="100%" ></image>
+                </svg>
+            </div>
+            <div class="col-md-10">
+              <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'news:surgecon_news_detail' news.id %}" style="color:#3C4245">{{ news.title }}</a></h5>
+                <p class="card-text"><small class="text-muted">{{ news.author}}|{{ news.published_date| date:"F d, Y"}} </small></p>
+                <p class="card-text">{{news.news_text|truncatewords:30|striptags}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+     {% endfor %}
+    </div>  <!-- End news list-->
+<!-- Pagination-->
+    <div>
+        {% if page_obj.paginator.num_pages > 1%}
+             <nav aria-label="Page navigation example">
+               <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                   {% endif %}
+                       <li class="page-item active" ><a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+                   {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+                   {% endif %}
+                </ul>
+              </nav>
+        {% endif %}
+    </div><!--End pagination-->
+</div>
+{% endblock %}

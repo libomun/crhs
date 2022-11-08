@@ -1,0 +1,19 @@
+{% extends 'home/base.html' %}
+{% load static %}
+<!--Shows news details-->
+{% block content %}
+<div class="container">
+    <div class="card mt-4 mb-3">
+      <div class="card-body">
+        <h1>{{ object.title }}</h1>
+        <p class=" text-muted">{{ object.author }} | {{ object.published_date| date:"F d, Y"}}</p>
+        <div class="text-center">
+          <img src="{{ object.news_img.url }}" class="rounded" alt="..." style="height:600px;width: auto">
+        </div>
+        <p class="card-text ">{{ object.news_text | safe }}</p>
+      </div>
+    </div>
+</div>
+{% endblock content %}
+{% block js %}
+{% endblock %}

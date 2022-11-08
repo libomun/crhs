@@ -1,0 +1,25 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="mt-5 mb-3">
+        <p>{{ object.date| date:"Y,N,t" }}</p>
+        <h2 style="font-weight: bold">{{ object.title}}</h2>
+        <p style="color:#008DC9 ;">author:
+            {% for m in object.author_list.all %}
+                <a style="color:#008DC9 ; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }}, </a>
+            {% endfor %}
+        </p>
+        <p>
+         Type:
+            {% if object.types == '0' %}Oral{% endif %}
+            {% if object.types == '1' %}Poster{% endif %}
+            {% if object.types == '2' %}Workshop{% endif %}
+        </p>
+        <h3>Abstract</h3>
+        <p>{{ object.abstract | linebreaks }}</p>
+    </div>
+</div>
+{% endblock content %}
+{% block js %}
+{% endblock %}

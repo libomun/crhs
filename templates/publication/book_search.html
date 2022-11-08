@@ -1,0 +1,40 @@
+{% extends "publication/book_base.html" %}
+{% load highlight %}
+{% load readmore %}
+{% block books_content %}
+  {% for obj in page_obj %}
+    <div class="card mb-3 mt-5">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{{ obj.picture.url }}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'publication:book_detail' obj.id %}" style="color:#008DC9 ; font-size:23px; text-decoration:none ">{{ obj.title|highlight_search:query|safe }}</a></h5>
+            <p class="card-text"><small class="text-muted"> {{ obj.date }}</small></p>
+            {% for m in obj.author_list.all %}
+                <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name|highlight_search:query|safe}}{{ m.last_name|highlight_search:query|safe}}, </a>
+            {% endfor %}
+            <p class="card-text">{{ obj.introduction |readmore:30|safe}} </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+   <div>
+    {% if page_obj.paginator.num_pages > 1%}
+      <nav aria-label="Page navigation example">
+       <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?q={{query}}&start_year={{start_year}}&end_year={{end_year}}{% if check_rural360 %}&check_rural360={{check_rural360}}{% endif %}{% if check_6for6 %}&check_6for6={{check_6for6}}{% endif %}{% if check_surgecon %}&check_surgecon={{check_surgecon}}{% endif %}&page={{page_obj.previous_page_number}}">previous</a></li>
+           {% endif %}
+               <li class="page-item active" ><a class="page-link" href="?q={{query}}&start_year={{start_year}}&end_year={{end_year}}{% if check_rural360 %}&check_rural360={{check_rural360}}{% endif %}{% if check_6for6 %}&check_6for6={{check_6for6}}{% endif %}{% if check_surgecon %}&check_surgecon={{check_surgecon}}{% endif %}&page={{page_obj.number}}">{{ page_obj.number }}</a></li>
+           {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?q={{query}}&start_year={{start_year}}&end_year={{end_year}}{% if check_rural360 %}&check_rural360={{check_rural360}}{% endif %}{% if check_6for6 %}&check_6for6={{check_6for6}}{% endif %}{% if check_surgecon %}&check_surgecon={{check_surgecon}}{% endif %}&page={{page_obj.next_page_number}}">next</a></li>
+           {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+   </div><!--end pagination-->
+{% endblock %}

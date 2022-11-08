@@ -1,0 +1,78 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+
+    <form id="myForm" class="mt-4" action="{% url 'publication:pre_search' %}" method="get">
+        <div class="row">
+          <div class="col-8">
+                <input id="search" class="form-control me-2" value="{{query}}" type="text" placeholder="Search" aria-label="Search" name="q", required="required"/>
+          </div>
+          <div class="col-4">
+                <button class="btn btn-outline-dark" type="submit">Search</button>
+          </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-1">
+                <P>FROM</P>
+            </div>
+            <div class="col-2">
+                <select id="start_year" class="form-select" aria-label="Default select example" name="start_year"  onchange='this.form.submit();'>
+                    <option {% if start_year == '2010' %} selected {% endif %}  value="2010">2010</option>
+                    <option {% if start_year == '2011' %} selected {% endif %} value="2011">2011</option>
+                    <option {% if start_year == '2012' %} selected {% endif %} value="2012">2012</option>
+                    <option {% if start_year == '2013' %} selected {% endif %} value="2013">2013</option>
+                    <option {% if start_year == '2014' %} selected {% endif %} value="2014">2014</option>
+                     <option {% if start_year == '2015' %} selected {% endif %} value="2015">2015</option>
+                    <option {% if start_year == '2016' %} selected {% endif %} value="2016">2016</option>
+                    <option {% if start_year == '2017' %} selected {% endif %} value="2017">2017</option>
+                    <option {% if start_year == '2017' %} selected {% endif %} value="2018">2018</option>
+                    <option {% if start_year == '2019' %} selected {% endif %} value="2019">2019</option>
+                    <option {% if start_year == '2020' %} selected {% endif %} value="2020">2020</option>
+                    <option {% if start_year == '2021' %} selected {% endif %} value="2021">2021</option>
+                    <option {% if start_year == '2022' %} selected {% endif %} value="2022">2022</option>
+                </select>
+            </div>
+           <div class="col-1">
+                <P>TO</P>
+            </div>
+            <div class="col-2">
+                <select id="end-year" class="form-select" aria-label="Default select example" name="end_year"  onchange='this.form.submit();'>
+                  <option {% if end_year == '2022' %} selected {% endif %} value="2022">2022</option>
+                  <option {% if end_year == '2021' %} selected {% endif %} value="2021">2021</option>
+                  <option {% if end_year == '2020' %} selected {% endif %} value="2020">2020</option>
+                  <option {% if end_year == '2019' %} selected {% endif %} value="2019">2019</option>
+                  <option {% if end_year == '2018' %} selected {% endif %} value="2018">2018</option>
+                  <option {% if end_year == '2017' %} selected {% endif %} value="2017">2017</option>
+                  <option {% if end_year == '2016' %} selected {% endif %} value="2016">2016</option>
+                  <option {% if end_year == '2015' %} selected {% endif %} value="2015">2015</option>
+                  <option {% if end_year == '2014' %} selected {% endif %} value="2014">2014</option>
+                  <option {% if end_year == '2013' %} selected {% endif %} value="2013">2013</option>
+                  <option {% if end_year == '2012' %} selected {% endif %} value="2012">2012</option>
+                  <option {% if end_year == '2011' %} selected {% endif %} value="2011">2011</option>
+                  <option {% if end_year == '2010' %} selected {% endif %} value="2010">2010</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="check_rural360" value="check_rural360" {% if check_rural360%} checked {% endif %}onchange='this.form.submit();'>
+                  <label class="form-check-label" for="inlineCheckbox1">Rural360</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="check_6for6" value="check_6for6" {% if check_6for6%} checked {% endif %} onchange='this.form.submit();'>
+                  <label class="form-check-label" for="inlineCheckbox2">6for6</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="check_surgecon" value="check_surgecon" {% if check_surgecon  %} checked {% endif %} onchange='this.form.submit();'>
+                  <label class="form-check-label" for="inlineCheckbox3">SurgeCon</label>
+                </div>
+            </div>
+        </div>
+    </form>
+{% block con_content %}
+{% endblock %}
+</div>
+
+{% endblock content %}
+{% block js %}
+{% endblock %}

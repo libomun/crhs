@@ -1,0 +1,10 @@
+.nav-item a:hover{
+  color:#008DC9
+}
+.admin a{
+  color:#008DC9;
+}
+.admin a:hover{
+  color:#008DC9;
+  text-decoration-line: underline;
+}

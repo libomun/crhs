@@ -1,0 +1,21 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="mt-5 mb-3">
+        <p>{{ object.date| date:"Y,N,t" }}</p>
+        <h2 style="font-weight: bold">{{ object.title}}</h2>
+        <p style="color:#008DC9 ;">
+            {% for m in object.author_list.all %}
+                <a style="color:#008DC9 ; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }}, </a>
+            {% endfor %}
+        </p>
+        <h5>Website Link</h5>
+        <P><a href="{{ object.external_link }}"> Go To Website</a></P>
+        <h5>Abstract</h5>
+        <p>{{ object.abstract | linebreaks }}</p>
+    </div>
+</div>
+{% endblock content %}
+{% block js %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "publication/online_base.html" %}
+{% load highlight %}
+{% load readmore %}
+{% block online_content %}
+  {% for obj in page_obj %}
+      <div class="mt-5">
+        <p><a href="{% url 'publication:online_detail' obj.id %}" style="color:#008DC9 ; font-size:23px; text-decoration:none ">{{ obj.title }}</a></p>
+        <p>
+        {% for m in obj.author_list.all %}
+         <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name}}{{ m.last_name }}, </a>
+        {% endfor %}
+        </p>
+        <p>{{ obj.abstract|readmore:30|safe }}</p>
+      </div>
+  {% endfor %}
+
+   <div>
+    {% if page_obj.paginator.num_pages > 1%}
+      <nav aria-label="Page navigation example">
+       <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?q={{query}}&start_year={{start_year}}&end_year={{end_year}}{% if check_rural360 %}&check_rural360={{check_rural360}}{% endif %}{% if check_6for6 %}&check_6for6={{check_6for6}}{% endif %}{% if check_surgecon %}&check_surgecon={{check_surgecon}}{% endif %}&page={{page_obj.previous_page_number}}">previous</a></li>
+           {% endif %}
+               <li class="page-item active" ><a class="page-link" href="?q={{query}}&start_year={{start_year}}&end_year={{end_year}}{% if check_rural360 %}&check_rural360={{check_rural360}}{% endif %}{% if check_6for6 %}&check_6for6={{check_6for6}}{% endif %}{% if check_surgecon %}&check_surgecon={{check_surgecon}}{% endif %}&page={{page_obj.number}}">{{ page_obj.number }}</a></li>
+           {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?q={{query}}&start_year={{start_year}}&end_year={{end_year}}{% if check_rural360 %}&check_rural360={{check_rural360}}{% endif %}{% if check_6for6 %}&check_6for6={{check_6for6}}{% endif %}{% if check_surgecon %}&check_surgecon={{check_surgecon}}{% endif %}&page={{page_obj.next_page_number}}">next</a></li>
+           {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+   </div><!--end pagination-->
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "members/member_base.html" %}
+{% load static %}
+{% block member %}
+     <div class="container mt-5">
+        <div class="row row-cols-3">
+            {% for obj in page_obj %}
+              <div class="col">
+               {% if obj.profile_pic %}
+                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <image xlink:href="{{ obj.profile_pic.url }}" x="0" y="0" height="100%" width="100%" ></image>
+                </svg>
+               {% endif %}
+                <h3 class="fw-normal"><a class="link-dark " href="{% url 'members:alumni_detail' obj.id%} ">{{ obj.first_name}} {{ obj.last_name}}</a></h3>
+                <p>{{ obj.title }} | {{ obj.affiliation }}</p>
+              </div> <!-- /.col-lg-4 -->
+            {% endfor %}
+        </div><!-- /.row -->
+<!-- pagination-->
+    <div class="mt-5">
+        {% if page_obj.paginator.num_pages > 1%}
+             <nav aria-label="Page navigation example">
+               <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                   {% endif %}
+                       <li class="page-item active" ><a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+                   {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+                   {% endif %}
+                </ul>
+              </nav>
+        {% endif %}
+    </div><!--end pagination-->
+  </div>
+{% endblock %}

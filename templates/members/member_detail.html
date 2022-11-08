@@ -1,0 +1,74 @@
+{% extends "members/member_base.html" %}
+{% load static %}
+{% load readmore %}
+{% block member %}
+<div class="container mt-3">
+  <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+  <div class="row">
+    <div class="col-md-8">
+        <h3>{{ object.first_name}} {{ object.last_name }}</h3>
+        <h6>{{ object.title }} | {{ object.affiliation }}</h6>
+        <p>Email: {{ object.email }}</p>
+        <p>Phone: {{ object.phone_num }}</p>
+        <p>Fax: {{ object.fax }}</p>
+    </div>
+    <div class="col-6 col-md-4">
+        <img src="{{ object.profile_pic.url }}" class="rounded float-end" alt="..." style="max-width: 100%;">
+    </div>
+  </div>
+  <div>
+      <hr>
+      <h4>About me</h4>
+      <p>{{ object.about_me|safe }} </p>
+  </div>
+   <div>
+        <h4> publication</h4>
+
+           {% for p in object.publishedarticles_set.all %}
+              <hr>
+               <p><a href="{% url 'publication:article_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
+               {% for m in p.author_list.all %}
+                  <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+               {% endfor %}
+               <p style="color: sandybrown">DOI: {{ p.doi }}</p>
+               <p>{{ p.abstract|readmore:30 }}</p>
+           {% endfor %}
+    </div>
+    <div>
+        <h4> presentation</h4>
+           {% for p in object.publishedpresentations_set.all %}
+              <hr>
+               <p><a href="{% url 'publication:pre_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
+               {% for m in p.author_list.all %}
+                  <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+               {% endfor %}
+               <p>{{ p.abstract|readmore:30 }}</p>
+           {% endfor %}
+    </div>
+    <div>
+        <h4>Books</h4>
+           {% for p in object.publishedbooks_set.all %}
+              <hr>
+               <p><a href="{% url 'publication:book_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
+               {% for m in p.author_list.all %}
+                  <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+               {% endfor %}
+               <p>{{ p.introduction|readmore:30 }}</p>
+           {% endfor %}
+    </div>
+  <div>
+    <h4>Online</h4>
+       {% for p in object.publishedonline_set.all %}
+          <hr>
+           <p><a href="{% url 'publication:online_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
+           {% for m in p.author_list.all %}
+              <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+           {% endfor %}
+           <p>{{ p.abstract|readmore:30 }}</p>
+       {% endfor %}
+   </div>
+
+
+</div>
+
+{% endblock %}

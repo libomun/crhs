@@ -1,0 +1,7 @@
+{% extends "home/base.html" %}
+<!--Nest admin page in the home page-->
+{% block content %}
+<div class="container-fluid mt-2">
+  <iframe scrolling="no" src="http://127.0.0.1:8000/admin/" height="2000px", width="100%" onload="window.parent.parent.scrollTo(0,0)"></iframe>
+</div>
+{% endblock %}
