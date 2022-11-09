@@ -73,7 +73,7 @@ class Rural360NewsSearchView(generic.ListView):
 
 # 6for6 news list view
 class SixforsixNewsListView(generic.ListView):
-    template_name = 'news/Sixforsix_news_list.html'
+    template_name = 'news/sixforsix_news_list.html'
     queryset =SixforsixPublishedNews.objects.filter(is_publish=True).order_by('-published_date')  # ordering by latest published time
     paginate_by = 3
 
