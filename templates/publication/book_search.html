@@ -11,14 +11,18 @@
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title"><a href="{% url 'publication:book_detail' obj.id %}" style="color:#008DC9 ; font-size:23px; text-decoration:none ">{{ obj.title|highlight_search:query|safe }}</a></h5>
-            <p class="card-text"><small class="text-muted"> {{ obj.date }}</small></p>
+            <p class="card-text"><small class="text-muted"> {{ obj.date}}</small></p>
             {% for m in obj.author_list.all %}
-                <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name|highlight_search:query|safe}}{{ m.last_name|highlight_search:query|safe}}, </a>
+                {% if m.member_number|get_digit:"4" != 8 %}
+                    <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name|highlight_search:query|safe}}{{ m.last_name|highlight_search:query|safe}}, </a>
+                {% else %}
+                    {{ m.first_name|highlight_search:query|safe}}{{ m.last_name|highlight_search:query|safe}},
+                {% endif %}
             {% endfor %}
-            <p class="card-text">{{ obj.introduction |readmore:30|safe}} </p>
+            <p class="card-text">{{ obj.introduction|truncatewords:100|highlight_search:query|safe}} </p>
           </div>
         </div>
-      </div>
+      </div>s
     </div>
   {% endfor %}
 

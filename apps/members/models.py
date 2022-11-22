@@ -25,7 +25,12 @@ class Members(models.Model):
     is_ra = models.BooleanField("Research Assistant")
     is_postdocs = models.BooleanField("Postdoctoral Researcher")
     is_alumni = models.BooleanField("Alumni")
+    other = models.BooleanField("Other", default=None)
 
     def __str__(self):
-        return '%s: %s %s' % (self.member_number, self.first_name, self.last_name)
+        return '%s: %s %s ---%s' % (self.member_number, self.first_name, self.last_name, self.affiliation)
+
+    class Meta:
+        verbose_name = "Members"  # name in the admin site
+        verbose_name_plural = verbose_name
 

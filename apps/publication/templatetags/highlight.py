@@ -10,3 +10,4 @@ def highlight_search(text, search):
                          '<span style="font-weight:bold;color:#FC5531" class="highlight"">\\1</span>', text)
     return mark_safe(highlighted)
 
+

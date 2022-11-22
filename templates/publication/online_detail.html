@@ -7,11 +7,15 @@
         <h2 style="font-weight: bold">{{ object.title}}</h2>
         <p style="color:#008DC9 ;">
             {% for m in object.author_list.all %}
-                <a style="color:#008DC9 ; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }}, </a>
+                {% if m.member_number|get_digit:"4" != 8 %}
+                    <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name}}{{ m.last_name }}, </a>
+                {% else %}
+                    {{ m.first_name}}{{ m.last_name }},
+                {% endif %}
             {% endfor %}
         </p>
-        <h5>Website Link</h5>
-        <P><a href="{{ object.external_link }}"> Go To Website</a></P>
+        <h5>External Link</h5>
+        <P><a href="{{ object.external_link }}">Click here for the external link</a></P>
         <h5>Abstract</h5>
         <p>{{ object.abstract | linebreaks }}</p>
     </div>

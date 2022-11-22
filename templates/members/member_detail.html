@@ -22,52 +22,66 @@
       <p>{{ object.about_me|safe }} </p>
   </div>
    <div>
-        <h4> publication</h4>
-
-           {% for p in object.publishedarticles_set.all %}
-              <hr>
-               <p><a href="{% url 'publication:article_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
-               {% for m in p.author_list.all %}
-                  <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+       {% if object.publishedarticles_set.all %}
+            <h4> publication</h4>
+               {% for p in object.publishedarticles_set.all %}
+                   {% if p.is_published is True %}
+                      <hr>
+                       <p><a href="{% url 'publication:article_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
+                       {% for m in p.author_list.all %}
+                          <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+                       {% endfor %}
+                       <p style="color: sandybrown">DOI: {{ p.doi }}</p>
+                       <p>{{ p.abstract|readmore:30 }}</p>
+                   {% endif %}
                {% endfor %}
-               <p style="color: sandybrown">DOI: {{ p.doi }}</p>
-               <p>{{ p.abstract|readmore:30 }}</p>
-           {% endfor %}
+       {% endif %}
     </div>
     <div>
-        <h4> presentation</h4>
-           {% for p in object.publishedpresentations_set.all %}
-              <hr>
-               <p><a href="{% url 'publication:pre_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
-               {% for m in p.author_list.all %}
-                  <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+       {% if object.publishedpresentations_set.all%}
+            <h4> presentation</h4>
+               {% for p in object.publishedpresentations_set.all %}
+                  {% if p.is_published is True %}
+                      <hr>
+                       <p><a href="{% url 'publication:pre_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
+                       {% for m in p.author_list.all %}
+                          <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+                       {% endfor %}
+                       <p>{{ p.abstract|readmore:30 }}</p>
+                   {% endif %}
                {% endfor %}
-               <p>{{ p.abstract|readmore:30 }}</p>
-           {% endfor %}
+       {% endif %}
     </div>
     <div>
-        <h4>Books</h4>
-           {% for p in object.publishedbooks_set.all %}
-              <hr>
-               <p><a href="{% url 'publication:book_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
-               {% for m in p.author_list.all %}
-                  <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+        {% if object.publishedbooks_set %}
+           <h4>Books</h4>
+               {% for p in object.publishedbooks_set.all %}
+                   {% if p.is_published is True %}
+                      <hr>
+                       <p><a href="{% url 'publication:book_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
+                       {% for m in p.author_list.all %}
+                          <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+                       {% endfor %}
+                       <p>{{ p.introduction|readmore:30 }}</p>
+                   {% endif %}
                {% endfor %}
-               <p>{{ p.introduction|readmore:30 }}</p>
-           {% endfor %}
+        {% endif %}
     </div>
   <div>
-    <h4>Online</h4>
-       {% for p in object.publishedonline_set.all %}
-          <hr>
-           <p><a href="{% url 'publication:online_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
-           {% for m in p.author_list.all %}
-              <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+      {% if object.publishedonline_set.all %}
+        <h4>Online</h4>
+           {% for p in object.publishedonline_set.all %}
+               {% if p.is_published is True %}
+                  <hr>
+                   <p><a href="{% url 'publication:online_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
+                   {% for m in p.author_list.all %}
+                      <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+                   {% endfor %}
+                   <p>{{ p.abstract|readmore:30 }}</p>
+               {% endif %}
            {% endfor %}
-           <p>{{ p.abstract|readmore:30 }}</p>
-       {% endfor %}
+     {% endif %}
    </div>
-
 
 </div>
 

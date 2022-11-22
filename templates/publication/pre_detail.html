@@ -5,9 +5,13 @@
     <div class="mt-5 mb-3">
         <p>{{ object.date| date:"Y,N,t" }}</p>
         <h2 style="font-weight: bold">{{ object.title}}</h2>
-        <p style="color:#008DC9 ;">author:
+        <p>
             {% for m in object.author_list.all %}
-                <a style="color:#008DC9 ; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }}, </a>
+                {% if m.member_number|get_digit:"4" != 8 %}
+                    <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name}}{{ m.last_name }}, </a>
+                {% else %}
+                    {{ m.first_name}}{{ m.last_name }},
+                {% endif %}
             {% endfor %}
         </p>
         <p>
@@ -16,8 +20,19 @@
             {% if object.types == '1' %}Poster{% endif %}
             {% if object.types == '2' %}Workshop{% endif %}
         </p>
-        <h3>Abstract</h3>
+        {% if object.picture %}
+            <img src="{{ object.picture.url }}">
+        {% endif %}
+        <h5>Abstract</h5>
         <p>{{ object.abstract | linebreaks }}</p>
+        {% if object.external_link %}
+            <h5>External Link</h5>
+            <p><a href="{{ object.external_link }}">Click here for the external link</a></p>
+        {% endif %}
+        {% if object.archive %}
+            <h5>Archive source</h5>
+            <p><a href="{{object.archive.url}}">Click here for the archive source</a></p>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}

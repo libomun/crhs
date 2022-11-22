@@ -6,7 +6,6 @@ register = template.Library()
 
 import re
 
-
 readmore_showscript = ''.join([
     "parentNode.style.display='none';",
     "parentNode.parentNode.getElementsByClassName('more')[0].style.display='inline';",
@@ -36,5 +35,6 @@ def readmore(txt, showwords=15):
     words.append('</p>')
 
     return mark_safe(' '.join(words))
+
 
 readmore.is_safe = True

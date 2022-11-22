@@ -6,10 +6,14 @@
     <div class="mt-5">
         <p><a href="{% url 'publication:article_detail' obj.id %}" style="color:#008DC9 ; font-size:23px; text-decoration:none ">{{ obj.title|highlight_search:query|safe  }}</a></p>
         {% for m in obj.author_list.all %}
-            <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name|highlight_search:query|safe }}{{ m.last_name|highlight_search:query|safe }}, </a>
+            {% if m.member_number|get_digit:"4" != 8 %}
+                <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name|highlight_search:query|safe}}{{ m.last_name|highlight_search:query|safe}}, </a>
+            {% else %}
+                {{ m.first_name|highlight_search:query|safe}}{{ m.last_name|highlight_search:query|safe}},
+            {% endif %}
         {% endfor %}
-        <p style="color: sandybrown">DOI: {{ obj.doi }}</p>
-        <p>{{ obj.abstract|readmore:30|safe}}</p>
+        <p style="color: sandybrown">DOI: {{ obj.doi|highlight_search:query|safe}}</p>
+        <p>{{ obj.abstract|truncatewords:100|highlight_search:query|safe}}</p>
     </div>
   {% endfor %}
 

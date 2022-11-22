@@ -13,7 +13,11 @@
             <h5 class="card-title"><a href="{% url 'publication:book_detail' obj.id %}" style="color:#008DC9 ; font-size:23px; text-decoration:none ">{{ obj.title }}</a></h5>
             <p class="card-text"><small class="text-muted"> {{ obj.date }}</small></p>
             {% for m in obj.author_list.all %}
-                <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name}}{{ m.last_name}}, </a>
+                {% if m.member_number|get_digit:"4" != 8 %}
+                    <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name}}{{ m.last_name }}, </a>
+                {% else %}
+                    {{ m.first_name}}{{ m.last_name }},
+                {% endif %}
             {% endfor %}
             <p class="card-text">{{ obj.introduction |readmore:30|safe}} </p>
           </div>

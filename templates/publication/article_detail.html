@@ -6,12 +6,18 @@
         <p>doi:{{ object.doi }}. Epub {{ object.date| date:"Y,N,t" }}</p>
         <h2 style="font-weight: bold">{{ object.title }}</h2>
         {% for m in object.author_list.all %}
-           <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name }}{{ m.last_name }},</a>
+            {% if m.member_number|get_digit:"4" != 8 %}
+                <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name}}{{ m.last_name }}, </a>
+            {% else %}
+                {{ m.first_name}}{{ m.last_name }},
+            {% endif %}
        {% endfor %}
         <p>Affiliation:{{ object.affiliation }}</p>
         <p style="color:#008DC9 ;"> DOI: {{ object.doi }}</p>
         <h5>Abstract</h5>
         <p>{{ object.abstract | linebreaks }}</p>
+        <h5>Journal</h5>
+        <p>{{ object.journal | linebreaks }}</p>
         <h5>Keywords</h5>
         <p>{{ object.keywords | linebreaks }}</p>
     </div>

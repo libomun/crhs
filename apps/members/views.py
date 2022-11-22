@@ -6,7 +6,7 @@ from .models import Members
 # All members List view
 class MembersListView(generic.ListView):
     template_name = 'members/member_index.html'
-    queryset = Members.objects.filter(is_active=True).order_by('member_number')
+    queryset = Members.objects.filter(Q(is_active=True) & Q(other=False)).order_by('member_number')
     paginate_by = 6
 
 
