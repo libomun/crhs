@@ -58,51 +58,25 @@
 
        <!-- Latest news display for different programs. -->
         <div class="row mb-2">
-            <div class="col-md-4">
-              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                  <strong class="d-inline-block text-primary">News | Rural360</strong>
-                  <p class="mb-2"><small class="text-muted">{{ rural360_latest_news.published_date | date:"F d, Y"}}</small></p>
-                  <p class="card-title mb-auto">{{ rural360_latest_news.title|truncatewords:8|striptags}}</p>
-                  <a href="{% url 'news:rural360_news_detail' rural360_latest_news.id %}" class="stretched-link">Continue reading</a>
-                </div>
-                <div class="col-auto d-none d-lg-block">
-                  <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                      <image xlink:href="{{ rural360_latest_news.news_img.url }}" x="0" y="0" height="100%" width="100%" ></image>
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                  <strong class="d-inline-block text-primary">News | 6for6</strong>
-                  <p class="mb-2"><small class="text-muted">{{ sixfor6_latest_news.published_date | date:"F d, Y" }}</small></p>
-                  <p class="card-title mb-auto">{{ sixfor6_latest_news.title|truncatewords:8|striptags }}</p>
-                  <a href="{% url 'news:sixforsix_news_detail' sixfor6_latest_news.id %}" class="stretched-link">Continue reading</a>
-                </div>
-                <div class="col-auto d-none d-lg-block">
-                  <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                      <image xlink:href="{{ sixfor6_latest_news.news_img.url }}" x="0" y="0" height="100%" width="100%" ></image>
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                  <strong class="d-inline-block text-primary">News | SurgeCon</strong>
-                  <p class="mb-2"><small class="text-muted">{{ surgecon_latest_news.published_date | date:"F d, Y" }}</small></p>
-                  <p class="card-title mb-auto">{{ surgecon_latest_news.title|truncatewords:8|striptags}}</p>
-                  <a href="{% url 'news:surgecon_news_detail' surgecon_latest_news.id %}" class="stretched-link">Continue reading</a>
-                </div>
-                <div class="col-auto d-none d-lg-block">
-                  <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                      <image xlink:href="{{ surgecon_latest_news.news_img.url }}" x="0" y="0" height="100%" width="100%" ></image>
-                  </svg>
-                </div>
-              </div>
-            </div>
+            {% if latest_news %}
+                {% for news in latest_news %}
+                    <div class="col-md-4">
+                      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                          <strong class="d-inline-block text-primary">News</strong>
+                          <p class="mb-2"><small class="text-muted">{{news.published_date | date:"F d, Y"}}</small></p>
+                          <p class="card-title mb-auto">{{news.title|truncatewords:8|striptags}}</p>
+                          <a href="{% url 'news:news_detail' news.id %}" class="stretched-link">Continue reading</a>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                              <image xlink:href="{{news.cover_img.url }}" x="0" y="0" height="100%" width="100%" ></image>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
         <!--End news-->
 

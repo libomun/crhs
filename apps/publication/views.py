@@ -6,12 +6,12 @@ from .models import PublishedArticles, PublishedBooks, PublishedPresentations, P
 class ArticlesListView(generic.ListView):
     template_name = 'publication/article_list.html'
     queryset = PublishedArticles.objects.filter(is_published=True).order_by('-date')
-    paginate_by = 2
+    paginate_by = 10
 
 
 class ArticlesSearchView(generic.ListView):
     template_name = 'publication/article_search.html'
-    paginate_by = 3
+    paginate_by = 10
 
 
     def get_queryset(self):
@@ -102,7 +102,7 @@ class ArticlesDetailView(generic.DetailView):
 class PresentationListView(generic.ListView):
     template_name = 'publication/pre_list.html'
     queryset = PublishedPresentations.objects.filter(is_published=True).order_by('-date')  # ordering by latest published time
-    paginate_by = 3
+    paginate_by = 10
 
 
 class PresentationDetailView(generic.DetailView):
@@ -113,7 +113,7 @@ class PresentationDetailView(generic.DetailView):
 # Search News view
 class PresentationSearchView(generic.ListView):
     template_name = 'Publication/pre_search.html'
-    paginate_by = 3
+    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.GET.get("q")
@@ -187,7 +187,7 @@ class PresentationSearchView(generic.ListView):
 class BookListView(generic.ListView):
     template_name = 'publication/book_list.html'
     queryset = PublishedBooks.objects.filter(is_published=True).order_by('-date')
-    paginate_by = 3
+    paginate_by = 10
 
 
 # News Detail View
@@ -199,7 +199,7 @@ class BookDetailView(generic.DetailView):
 # Search News view
 class BookSearchView(generic.ListView):
     template_name = 'Publication/book_search.html'
-    paginate_by = 3
+    paginate_by = 10
 
     # return search Rural360 result
     def get_queryset(self):
@@ -275,7 +275,7 @@ class BookSearchView(generic.ListView):
 class OnlineListView(generic.ListView):
     template_name = 'publication/online_list.html'
     queryset = PublishedOnline.objects.filter(is_published=True).order_by('-date')
-    paginate_by = 3
+    paginate_by = 10
 
 
 # News Detail View
@@ -287,7 +287,7 @@ class OnlineDetailView(generic.DetailView):
 # Search News view
 class OnlineSearchView(generic.ListView):
     template_name = 'Publication/online_search.html'
-    paginate_by = 3
+    paginate_by = 10
 
     # return search Rural360 result
     def get_queryset(self):

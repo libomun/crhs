@@ -1,24 +1,34 @@
-{% extends "members/member_base.html" %}
+{% extends "home/base.html" %}
 {% load static %}
-{% block member %}
-     <div class="container mt-5">
-        <div class="row row-cols-3">
-            {% for obj in page_obj %}
-              <div class="col">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <image xlink:href="{{ obj.profile_pic.url }}" x="0" y="0" height="100%" width="100%" ></image>
-                </svg>
-                {% if obj.is_alumni %}
-                  <h3 class="fw-normal"><a class="link-dark " href="{% url 'members:alumni_detail' obj.id%} ">{{ obj.first_name}} {{ obj.last_name}}</a></h3>
-                {% else %}
-                  <h3 class="fw-normal"><a class="link-dark " href="{% url 'members:member_detail' obj.id%} ">{{ obj.first_name}} {{ obj.last_name}}</a></h3>
-                {% endif %}
-                <p>{{ obj.title }} | {{ obj.affiliation }}</p>
-              </div> <!-- /.col-lg-4 -->
-            {% endfor %}
-        </div><!-- /.row -->
-<!--pagination-->
-   <div class="mt-3">
+{% block content %}
+ <div class="container">
+ <!--Rural360 news search results-->
+    <div>
+     <h2 class="mt-5">Search results for News</h2>
+     <hr class="mt-0">
+     {% for news in page_obj %}
+        <div class="card mb-3 mt-3" style="max-height:300px">
+          <div class="row g-0">
+            <div class="col-md-4">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                     <image xlink:href="{{ news.cover_img.url }}" x="0" y="20%" height="100%" width="200" ></image>
+               </svg>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'news:news_detail' news.id %}" style="color:#3C4245">{{ news.title }}</a></h5>
+                <p class="card-text"><small class="text-muted">{{ news.author}}|{{ news.published_date| date:"F d, Y"}} </small></p>
+                <p class="card-text">{{news.news_content|truncatewords:30|striptags}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+         <h3 class="mt-5">No Results</h3>
+     {% endfor %}
+    </div><!--End search result-->
+ <!--Pagination-->
+   <div>
         {% if page_obj.paginator.num_pages > 1%}
           <nav aria-label="Page navigation example">
            <ul class="pagination justify-content-center">
@@ -40,6 +50,6 @@
             </ul>
           </nav>
         {% endif %}
-   </div><!--end pagination-->
-  </div>
+   </div><!--End pagination-->
+</div>
 {% endblock %}

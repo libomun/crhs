@@ -24,14 +24,6 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" aria-expanded="false">PROGRAMS</a>
-                <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                  <li><a class="dropdown-item" href="{% url 'rural360:rural360index' %}">RURAL360</a></li>
-                  <li><a class="dropdown-item" href="{% url 'sixforsix:sixforsix_index' %}">6 FOR 6</a></li>
-                  <li><a class="dropdown-item" href="{% url 'surgecon:surgecon_index' %}">SURGECON</a></li>
-                </ul>
-              </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" aria-expanded="false">PUBLICATION</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown01">
@@ -42,7 +34,7 @@
                     </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'news:all_news_list' %}">NEWS</a>
+                <a class="nav-link" href="{% url 'news:news_list' %}">NEWS</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'members:index' %}">OUR PEOPLE</a>

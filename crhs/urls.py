@@ -24,8 +24,5 @@ urlpatterns = [
     path('news/', include('apps.news.urls')),  # News
     path('members/', include('apps.members.urls')),  # Members
     path('publication/', include('apps.publication.urls')),  # Publication
-    path('rural360/', include('apps.rural360.urls')),  # Rural360
-    path('sixforsix/', include('apps.sixforsix.urls')),  # 6for6
-    path('surgecon/', include('apps.surgecon.urls')),  # SurgeCon
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
