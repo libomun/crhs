@@ -23,5 +23,11 @@ class News(models.Model):
         verbose_name_plural = verbose_name
 
 
+# Comment model
+class Comment(models.Model):
+    news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='comments')
+    body = models.TextField('comment')
+    created_date = models.DateTimeField(auto_now_add=True)
 
-
+    class Meta:
+        ordering = ['created_date']

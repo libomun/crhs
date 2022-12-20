@@ -163,3 +163,6 @@ XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
 
 # Filer
 FILER_ENABLE_PERMISSIONS = True
+
+# Login required
+LOGIN_URL = '/administration'

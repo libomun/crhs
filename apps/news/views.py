@@ -1,7 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic import CreateView
 
-from .models import News
+from .forms import CommentForm
+from .models import News, Comment
 
 
 # News list view
@@ -30,8 +34,23 @@ class NewsSearchView(generic.ListView):
             )
         return object_list
 
-# Add query content in  context
+# Add query content in context
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['query'] = self.request.GET.get('q')
         return context
+
+
+# Add comment view for news
+class AddCommentView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'news/add_comment.html'
+
+    def form_valid(self, form):
+        form.instance.news_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        news_id = self.kwargs['pk']
+        return reverse_lazy('news:news_detail', kwargs={'pk': news_id})
