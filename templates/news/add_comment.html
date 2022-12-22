@@ -1,0 +1,18 @@
+{% extends 'news/news_detail.html' %}
+{% load static %}
+{% block content %}
+ <div class="container mt-5">
+    <h3> Add a comment...</h3>
+     <hr>
+    <br/><br/>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            <strong>{{ form.as_p }}</strong>
+            <button class="btn btn-primary mt-3">Submit</button>
+        </form>
+    </div>
+ </div>
+{% endblock content %}
+{% block js %}
+{% endblock %}
