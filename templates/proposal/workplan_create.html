@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %}
+{% block content %}
+<div class="container mt-3">
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="{% url 'proposal:proposal_edit' proposal_id%}">Proposal</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Team member</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Work plan</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Budget</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">References</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#" tabindex="-1">Appendices</a>
+  </li>
+</ul>
+<h1>Create New Work plan</h1>
+
+<form method="POST">
+  {% csrf_token %}
+    {{ form.media }}
+  {{ form.as_p }}
+  <input type="hidden" name="proposal" value="{{ proposal_id }}">
+  <button class="btn btn-primary" type="submit">Save</button>
+    <a href="{% url 'proposal:workplan_list' proposal_id%}"> <button class="btn btn-secondary" type="button">Cancel</button></a>
+</form>
+
+</div>
+{% endblock %}

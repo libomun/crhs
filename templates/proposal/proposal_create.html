@@ -1,0 +1,50 @@
+{% extends 'home/base.html' %}
+
+{% block css%}
+    <style>
+           input, select {width: 100%}
+    </style>
+{% endblock %}
+{% block content %}
+<div class="container mt-3">
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="{% url 'proposal:proposal_create' %}">Proposal</a>
+  </li>
+ {% if proposal %}
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:team_list' proposal.id %}">Team member</a>
+  </li>
+ {% else %}
+  <li class="nav-item">
+    <a class="nav-link" href="#">Team member</a>
+  </li>
+ {% endif %}
+  <li class="nav-item">
+    <a class="nav-link" href="#">Work plan</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Budget</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">References</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#" tabindex="-1">Appendices</a>
+  </li>
+</ul>
+
+    <h2>Create Proposal</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">
+        Create Proposal
+    </button>
+  </form>
+</div>
+
+
+
+{% endblock %}

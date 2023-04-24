@@ -1,0 +1,62 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="{% url 'proposal:proposal_edit' proposal_id%}">Proposal</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:team_list' proposal_id%}">Team member</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:workplan_list' proposal_id%}">Work plan</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:budget_list' proposal_id%}">Budget</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:references_list' proposal_id%}">References</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:appendices_list' proposal_id%}" tabindex="-1">Appendices</a>
+  </li>
+</ul>
+<h1>Work plan List</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Proposal</th>
+      <th>Item</th>
+      <th>Description</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Is Completed</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for workplan in workplans %}
+      <tr>
+        <td>{{ workplan.proposal }}</td>
+        <td>{{ workplan.item }}</td>
+        <td>{{ workplan.description |safe}}</td>
+      <td>{{ workplan.start_date|date:"SHORT_DATE_FORMAT" }}</td>
+      <td>{{ workplan.end_date|date:"SHORT_DATE_FORMAT" }}</td>
+      <td>{{ workplan.is_completed }}</td>
+        <td>
+          <a href="{% url 'proposal:workplan_edit' pk=workplan.pk  proposal_id=proposal_id %}" class="btn btn-sm btn-primary">Edit</a>
+          <a href="{% url 'proposal:workplan_delete' pk=workplan.pk proposal_id=proposal_id %}" class="btn btn-sm btn-danger">Delete</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="7">No workplans found.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'proposal:workplan_create' proposal_id%}" class="btn btn-primary mb-3" >Add New work plan</a>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="{% url 'proposal:proposal_edit' proposal_id%}">Proposal</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:team_list' proposal_id%}">Team member</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:workplan_list' proposal_id%}">Work plan</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:budget_list' proposal_id%}">Budget</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:references_list' proposal_id%}">References</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:appendices_list' proposal_id%}" tabindex="-1">Appendices</a>
+  </li>
+</ul>
+<h1>References List</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Proposal</th>
+      <th>DOI</th>
+      <th>URL</th>
+      <th>Reference</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for reference in references %}
+      <tr>
+        <td>{{ reference.proposal }}</td>
+        <td>{{ reference.Doi }}</td>
+          <td>{{ reference.url }}</td>
+        <td>{{ reference.reference|truncatewords:50 }}</td>
+        <td>
+          <a href="{% url 'proposal:references_edit' pk=reference.pk  proposal_id=proposal_id %}" class="btn btn-sm btn-primary">Edit</a>
+          <a href="{% url 'proposal:references_delete' pk=reference.pk proposal_id=proposal_id %}" class="btn btn-sm btn-danger">Delete</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="7">No reference found.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'proposal:references_create' proposal_id%}" class="btn btn-primary mb-3" >Add New references</a>
+</div>
+{% endblock %}

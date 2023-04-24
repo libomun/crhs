@@ -1,0 +1,36 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-3">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Proposal</th>
+      <th scope="col">Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><a href="{% url 'proposal:draft_proposals' %}">Draft Proposals </a></th>
+      <td>({{ draft_count }})</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="{% url 'proposal:requiring_attention_proposals' %}">Requiring Attention Proposals </a></th>
+      <td>({{ requiring_attention_count }})</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="{% url 'proposal:under_review_proposals' %}">Under Review Proposals </a></th>
+      <td>({{ under_review_count }})</td>
+    </tr>
+      <tr>
+      <th scope="row"><a href="{% url 'proposal:post_review_proposals' %}">Post-Review Proposals</a></th>
+      <td colspan="2">({{ post_review_count }})</td>
+    </tr>
+      <tr>
+      <th scope="row"><a href="{% url 'proposal:withdrawn_proposals' %}">Withdrawn Proposals</a></th>
+      <td colspan="2">({{ withdrawn_count }})</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+{% endblock %}

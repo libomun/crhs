@@ -1,0 +1,62 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="{% url 'proposal:proposal_edit' proposal_id%}">Proposal</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:team_list' proposal_id%}">Team member</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:workplan_list' proposal_id%}">Work plan</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:budget_list' proposal_id%}">Budget</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:references_list' proposal_id%}">References</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'proposal:appendices_list' proposal_id%}" tabindex="-1">Appendices</a>
+  </li>
+  </ul>
+<h1>Team List</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Proposal</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+      <th>Education Degree</th>
+       <th>Position</th>
+        <th>Role in this research</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for team in teams %}
+      <tr>
+        <td>{{ team.proposal }}</td>
+          <td>{{ team.first_name }}</td>
+          <td>{{ team.last_name }}</td>
+          <td>{{ team.degree }}</td>
+          <td>{{ team.position }}</td>
+        <td>{{ team.role }}</td>
+        <td>
+          <a href="{% url 'proposal:team_edit' pk=team.pk  proposal_id=proposal_id %}" class="btn btn-sm btn-primary">Edit</a>
+          <a href="{% url 'proposal:team_delete' pk=team.pk proposal_id=proposal_id %}" class="btn btn-sm btn-danger">Delete</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="7">No teams found.</td>
+      </tr>
+    {% endfor %}
+   </tbody>
+  </table>
+ <a href="{% url 'proposal:team_create' proposal_id%}" class="btn btn-primary mb-3" >Add New Team</a>
+</div>
+{% endblock %}
