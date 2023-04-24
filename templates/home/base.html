@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/nav.css' %}">
     <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+     <script src="{% static 'js/select2_jquery.min.js' %}"></script>
+
     {% block css %}{% endblock %}
 </head>
 
@@ -39,10 +41,33 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'members:index' %}">OUR PEOPLE</a>
               </li>
+
+{#            <div class="admin d-flex">#}
+{#                <a class="nav-link" href="{% url 'home:administration'  %}">Center for Rural Health Studies</a>#}
+{#            </div>#}
             </ul>
-            <div class="admin d-flex">
-                <a class="nav-link" href="{% url 'home:administration'  %}">Center for Rural Health Studies</a>
-            </div>
+            <ul class="navbar-nav">
+             {% if request.user.is_authenticated %}
+               <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle " href="{% url 'publication:book_list'  %}" id="dropdown02" aria-expanded="false">Account</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown02">
+                      {% if request.user.is_staff %}
+                      <li><a class="dropdown-item" href="{% url 'home:administration'  %}">Center for Rural Health Studies</a></li>
+                      {% endif %}
+                      <li><a class="dropdown-item" href="{% url 'proposal:proposal_all' %}">My Proposal</a></li>
+                      <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Change password</a></li>
+                      <li><a class="dropdown-item" href="{% url 'account_logout' %}">Log out</a></li>
+                    </ul>
+              </li>
+             {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url "account_login" %}">Login in</a>
+                  </li>
+                  <li class="nav-item">
+                      <a  href="{% url "account_signup" %}"><button class="btn btn-sm btn-primary" style=" margin-top: 5px; margin-left: 6px;">Sign up</button></a>
+                  </li>
+             {% endif %}
+            </ul>
           </div>
         </div>
       </nav>

@@ -24,5 +24,8 @@ urlpatterns = [
     path('news/', include('apps.news.urls')),  # News
     path('members/', include('apps.members.urls')),  # Members
     path('publication/', include('apps.publication.urls')),  # Publication
+    path('accounts/', include('allauth.urls')),  # django-allauth
+    path('proposal/', include('apps.proposal.urls')),  # Proposal
+    path("select2/", include("django_select2.urls")),  # Django-Select2
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

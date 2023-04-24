@@ -42,10 +42,27 @@ INSTALLED_APPS = [
     'apps.news.apps.NewsConfig',
     'apps.members.apps.MembersConfig',
     'apps.publication.apps.PublicationConfig',
+
+    'apps.proposal.apps.ProposalConfig',
     'ckeditor',
+
+    # filer
     'easy_thumbnails',
     'filer',
     'mptt',
+
+    # django-allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # crispy-bootstrap5
+    "crispy_forms",
+    "crispy_bootstrap5",
+
+    # 'django_select2',
+    'django_select2',
+
 ]
 
 AUTH_USER_MODEL = 'administration.User'  # Custom user model
@@ -74,9 +91,19 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
+]
+
+# django-allauth
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'crhs.wsgi.application'
@@ -166,3 +193,17 @@ FILER_ENABLE_PERMISSIONS = True
 
 # Login required
 LOGIN_URL = '/administration'
+# Login redirect
+LOGIN_REDIRECT_URL='/proposal'
+
+# django-allauth
+SITE_ID = 1
+# using email to login
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_UNIQUE = True
+
+
+# crispy-bootstrap5
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
