@@ -112,7 +112,7 @@ class PresentationDetailView(generic.DetailView):
 
 # Search News view
 class PresentationSearchView(generic.ListView):
-    template_name = 'Publication/pre_search.html'
+    template_name = 'publication/pre_search.html'
     paginate_by = 10
 
     def get_queryset(self):
@@ -198,7 +198,7 @@ class BookDetailView(generic.DetailView):
 
 # Search News view
 class BookSearchView(generic.ListView):
-    template_name = 'Publication/book_search.html'
+    template_name = 'publication/book_search.html'
     paginate_by = 10
 
     # return search Rural360 result
@@ -286,7 +286,7 @@ class OnlineDetailView(generic.DetailView):
 
 # Search News view
 class OnlineSearchView(generic.ListView):
-    template_name = 'Publication/online_search.html'
+    template_name = 'publication/online_search.html'
     paginate_by = 10
 
     # return search Rural360 result
