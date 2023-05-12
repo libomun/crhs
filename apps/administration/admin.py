@@ -2,9 +2,11 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User
 from django.contrib.admin.models import LogEntry
+from django.contrib.auth.decorators import login_required
 
 # Register the custom user model in the admin site
 admin.site.register(User, UserAdmin)
+# use allauth in admin
 
 
 # Register Log entry to the admin site

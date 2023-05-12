@@ -15,7 +15,7 @@ def proposal_all(request):
     under_review_count = proposals.filter(status=Proposal.UNDER_REVIEW).count()
     post_review_count = proposals.filter(status=Proposal.POST_REVIEW).count()
     withdrawn_count = proposals.filter(status=Proposal.WITHDRAWN).count()
-    return render(request, 'proposal/proposal_all.html', {'proposals': proposals,
+    return render(request, 'dashboard/dashboard_base.html', {'proposals': proposals,
                                                   'draft_count': draft_count,
                                                   'requiring_attention_count': requiring_attention_count,
                                                   'under_review_count': under_review_count,

@@ -1,11 +1,11 @@
 from django.views import generic
 from django.db.models import Q
-from .models import PublishedArticles, PublishedBooks, PublishedPresentations, PublishedOnline
+from .models import Articles, Books, Presentations, Online
 
 
 class ArticlesListView(generic.ListView):
     template_name = 'publication/article_list.html'
-    queryset = PublishedArticles.objects.filter(is_published=True).order_by('-date')
+    queryset = Articles.objects.filter(is_published=True).order_by('-date')
     paginate_by = 10
 
 
@@ -24,56 +24,56 @@ class ArticlesSearchView(generic.ListView):
 
         # if query is not None:
         if check_rural360 is not None and check_6for6 is not None and check_surgecon is not None:
-            object_list = PublishedArticles.objects.filter(
+            object_list = Articles.objects.filter(
                     (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(doi__iexact=query)
                      | Q(abstract__icontains=query) | Q(keywords__icontains=query) | Q(affiliation__icontains=query))
                     & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_6for6=True) & Q(is_surgecon=True) & Q(is_published=True)
                 )
             return object_list
         elif check_rural360 is not None and check_6for6 is not None and check_surgecon is None:
-            object_list = PublishedArticles.objects.filter(
+            object_list = Articles.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(doi__iexact=query)
                  | Q(abstract__icontains=query) | Q(keywords__icontains=query) | Q(affiliation__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_6for6=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is None and check_surgecon is not None:
-            object_list = PublishedArticles.objects.filter(
+            object_list = Articles.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(doi__iexact=query)
                  | Q(abstract__icontains=query) | Q(keywords__icontains=query) | Q(affiliation__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is not None and check_surgecon is not None:
-            object_list = PublishedArticles.objects.filter(
+            object_list = Articles.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(doi__iexact=query)
                  | Q(abstract__icontains=query) | Q(keywords__icontains=query) | Q(affiliation__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_6for6=True) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is None and check_surgecon is None:
-            object_list = PublishedArticles.objects.filter(
+            object_list = Articles.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(doi__iexact=query)
                  | Q(abstract__icontains=query) | Q(keywords__icontains=query) | Q(affiliation__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is not None and check_surgecon is None:
-            object_list = PublishedArticles.objects.filter(
+            object_list = Articles.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(doi__iexact=query)
                  | Q(abstract__icontains=query) | Q(keywords__icontains=query) | Q(affiliation__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_6for6=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is None and check_surgecon is not None:
-            object_list = PublishedArticles.objects.filter(
+            object_list = Articles.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(doi__iexact=query)
                  | Q(abstract__icontains=query) | Q(keywords__icontains=query) | Q(affiliation__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is None and check_surgecon is None:
-            object_list = PublishedArticles.objects.filter(
+            object_list = Articles.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(doi__iexact=query)
                  | Q(abstract__icontains=query) | Q(keywords__icontains=query) | Q(affiliation__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_published=True)
@@ -95,18 +95,18 @@ class ArticlesSearchView(generic.ListView):
 
 
 class ArticlesDetailView(generic.DetailView):
-    model = PublishedArticles
+    model = Articles
     template_name = 'publication/article_detail.html'
 
 
 class PresentationListView(generic.ListView):
     template_name = 'publication/pre_list.html'
-    queryset = PublishedPresentations.objects.filter(is_published=True).order_by('-date')  # ordering by latest published time
+    queryset = Presentations.objects.filter(is_published=True).order_by('-date')  # ordering by latest published time
     paginate_by = 10
 
 
 class PresentationDetailView(generic.DetailView):
-    model = PublishedPresentations
+    model = Presentations
     template_name = 'publication/pre_detail.html'
 
 
@@ -124,49 +124,49 @@ class PresentationSearchView(generic.ListView):
         check_surgecon = self.request.GET.get("check_surgecon")
 
         if check_rural360 is not None and check_6for6 is not None and check_surgecon is not None:
-            object_list = PublishedPresentations.objects.filter(
+            object_list = Presentations.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query) | Q(types__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_6for6=True) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is not None and check_surgecon is None:
-            object_list = PublishedPresentations.objects.filter(
+            object_list = Presentations.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query) | Q(types__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_6for6=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is None and check_surgecon is not None:
-            object_list = PublishedPresentations.objects.filter(
+            object_list = Presentations.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query) | Q(types__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q( is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is not None and check_surgecon is not None:
-            object_list = PublishedPresentations.objects.filter(
+            object_list = Presentations.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query) | Q(types__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_6for6=True) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is None and check_surgecon is None:
-            object_list = PublishedPresentations.objects.filter(
+            object_list = Presentations.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query) | Q(types__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is not None and check_surgecon is None:
-            object_list = PublishedPresentations.objects.filter(
+            object_list = Presentations.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query) | Q(types__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_6for6=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is None and check_surgecon is not None:
-            object_list = PublishedPresentations.objects.filter(
+            object_list = Presentations.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query) | Q(types__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is None and check_surgecon is None:
-            object_list = PublishedPresentations.objects.filter(
+            object_list = Presentations.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query) | Q(types__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_published=True)
             )
@@ -186,13 +186,13 @@ class PresentationSearchView(generic.ListView):
 
 class BookListView(generic.ListView):
     template_name = 'publication/book_list.html'
-    queryset = PublishedBooks.objects.filter(is_published=True).order_by('-date')
+    queryset = Books.objects.filter(is_published=True).order_by('-date')
     paginate_by = 10
 
 
 # News Detail View
 class BookDetailView(generic.DetailView):
-    model = PublishedBooks
+    model = Books
     template_name = 'publication/book_detail.html'
 
 
@@ -212,49 +212,49 @@ class BookSearchView(generic.ListView):
 
         # if query is not None:
         if check_rural360 is not None and check_6for6 is not None and check_surgecon is not None:
-            object_list = PublishedBooks.objects.filter(
+            object_list = Books.objects.filter(
                 (Q(title__icontains=query) | Q(isbn__iexact=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(introduction__icontains=query) | Q(categories__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_6for6=True) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is not None and check_surgecon is None:
-            object_list = PublishedBooks.objects.filter(
+            object_list = Books.objects.filter(
                 (Q(title__icontains=query) | Q(isbn__iexact=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(introduction__icontains=query) | Q(categories__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_6for6=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is None and check_surgecon is not None:
-            object_list = PublishedBooks.objects.filter(
+            object_list = Books.objects.filter(
                 (Q(title__icontains=query) | Q(isbn__iexact=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(introduction__icontains=query) | Q(categories__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is not None and check_surgecon is not None:
-            object_list = PublishedBooks.objects.filter(
+            object_list = Books.objects.filter(
                 (Q(title__icontains=query) | Q(isbn__iexact=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(introduction__icontains=query) | Q(categories__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_6for6=True) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is None and check_surgecon is None:
-            object_list = PublishedBooks.objects.filter(
+            object_list = Books.objects.filter(
                 (Q(title__icontains=query) | Q(isbn__iexact=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(introduction__icontains=query) | Q(categories__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is not None and check_surgecon is None:
-            object_list = PublishedBooks.objects.filter(
+            object_list = Books.objects.filter(
                 (Q(title__icontains=query) | Q(isbn__iexact=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(introduction__icontains=query) | Q(categories__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_6for6=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is None and check_surgecon is not None:
-            object_list = PublishedBooks.objects.filter(
+            object_list = Books.objects.filter(
                 (Q(title__icontains=query) | Q(isbn__iexact=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(introduction__icontains=query) | Q(categories__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is None and check_surgecon is None:
-            object_list = PublishedBooks.objects.filter(
+            object_list = Books.objects.filter(
                 (Q(title__icontains=query) | Q(isbn__iexact=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(introduction__icontains=query) | Q(categories__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_published=True)
             )
@@ -274,13 +274,13 @@ class BookSearchView(generic.ListView):
 
 class OnlineListView(generic.ListView):
     template_name = 'publication/online_list.html'
-    queryset = PublishedOnline.objects.filter(is_published=True).order_by('-date')
+    queryset = Online.objects.filter(is_published=True).order_by('-date')
     paginate_by = 10
 
 
 # News Detail View
 class OnlineDetailView(generic.DetailView):
-    model = PublishedOnline
+    model = Online
     template_name = 'publication/online_detail.html'
 
 
@@ -300,49 +300,49 @@ class OnlineSearchView(generic.ListView):
 
         # if query is not None:
         if check_rural360 is not None and check_6for6 is not None and check_surgecon is not None:
-            object_list = PublishedOnline.objects.filter(
+            object_list = Online.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_6for6=True) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is not None and check_surgecon is None:
-            object_list = PublishedOnline.objects.filter(
+            object_list = Online.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_6for6=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is None and check_surgecon is not None:
-            object_list = PublishedOnline.objects.filter(
+            object_list = Online.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is not None and check_surgecon is not None:
-            object_list = PublishedOnline.objects.filter(
+            object_list = Online.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_6for6=True) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is not None and check_6for6 is None and check_surgecon is None:
-            object_list = PublishedOnline.objects.filter(
+            object_list = Online.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_rural360=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is not None and check_surgecon is None:
-            object_list = PublishedOnline.objects.filter(
+            object_list = Online.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_6for6=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is None and check_surgecon is not None:
-            object_list = PublishedOnline.objects.filter(
+            object_list = Online.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_surgecon=True) & Q(is_published=True)
             )
             return object_list
         elif check_rural360 is None and check_6for6 is None and check_surgecon is None:
-            object_list = PublishedOnline.objects.filter(
+            object_list = Online.objects.filter(
                 (Q(title__icontains=query) | Q(main_authors__icontains=query) | Q(other_authors__icontains=query) | Q(abstract__icontains=query))
                 & Q(date__year__range=[start_year, end_year]) & Q(is_published=True)
             )

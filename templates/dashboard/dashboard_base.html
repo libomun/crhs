@@ -1,0 +1,80 @@
+{% extends "home/base.html" %}
+{% load static %}
+    {% block css %}
+            <link rel="stylesheet" href="{% static 'css/sidebars.css' %}">
+    {% endblock %}
+{% block content %}
+
+<div class="container-fluid mt-5">
+   <div class="row">
+       <div class="col-3">
+            <ul class="list-unstyled ps-0">
+              <li class="mb-1">
+                    <strong><span>Account</span></strong>
+                <div class="collapse-show" id="account-collapse">
+                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{% url 'dashboard:profile' %}" class="link-ajax link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
+                    <li><a href="{% url 'account_change_password' %}"  class="link-dark d-inline-flex text-decoration-none rounded">Change password</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="mb-1">
+                   <strong> <span>My proposal</span> </strong>
+                </button>
+                <div class="collapse-show" id="proposal-collapse">
+                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                      <li><a href="{% url 'proposal:draft_proposals' %}" class="link-ajax link-dark d-inline-flex text-decoration-none rounded">Draft Proposals</a></li>
+                      <li><a href="{% url 'proposal:requiring_attention_proposals' %}" class="link-ajax link-dark d-inline-flex text-decoration-none rounded">Requiring Attention Proposals</a></li>
+                      <li><a href="{% url 'proposal:under_review_proposals' %}" class="link-ajax link-dark d-inline-flex text-decoration-none rounded">Under Review Proposals</a></li>
+                      <li><a href="{% url 'proposal:post_review_proposals' %}" class="link-ajax link-dark d-inline-flex text-decoration-none rounded">Post-Review Proposals</a></li>
+                      <li><a href="{% url 'proposal:withdrawn_proposals' %}" class="link-ajax link-dark d-inline-flex text-decoration-none rounded">Withdrawn Proposals</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="mb-1">
+                    <strong> <span>Publication</span></strong>
+                <div class="collapse-show" id="publication-collapse">
+                  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{% url 'dashboard:my_article' %}" class="link-ajax link-dark d-inline-flex text-decoration-none rounded">Articles/Research Paper</a></li>
+                    <li><a href="{% url 'dashboard:my_presentation' %}" class="link-ajax link-dark d-inline-flex text-decoration-none rounded">Conference Presentation</a></li>
+                    <li><a href="{% url 'dashboard:my_book' %}" class="link-ajax link-dark d-inline-flex text-decoration-none rounded">Books/Books Chapter</a></li>
+                    <li><a href="{% url 'dashboard:my_online' %}" class="link-ajax link-dark d-inline-flex text-decoration-none rounded">Online</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+    <div class = 'col-9'>
+           <div id="dashboard-content">
+            {% block dashboard %}
+                <h2>My profile</h2>
+                <hr>
+                  <div class="row">
+                    <div class="col-md-8">
+                        <h4>{{ profile.first_name}} {{ profile.last_name }}</h4>
+                        <p>{{ profile.title }} | {{ profile.affiliation }}</p>
+                        <p>Email: {{ profile.email}}</p>
+                        <p>Phone: {{ profile.phone }}</p>
+                        <p>Address: {{ profile.office_address }}</p>
+                        <p>External Link: {{ profile.external_link }}</p>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <img src="{{ profile.profile_pic.url }}" class="rounded float-end" alt="..." style="max-width: 100%;">
+                    </div>
+                  </div>
+                  <div>
+                      <hr>
+                      <h4>Bio</h4>
+                      <p>{{ profile.bio|safe }} </p>
+                  </div>
+            {% endblock %}
+          </div>
+    </div>
+
+    </div>
+</div>
+{% endblock%}
+{% block js %}
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block dashboard %}
+<div class="container">
+         <h2>My profile</h2>
+         <hr>
+        <form  method="POST"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <img class="img-thumbnail" src={{ profile.profile_pic.url }}>
+            {{ form.media}}
+            {{ form|crispy}}
+            <button type='submit' class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-secondary" onclick="goBack()">Cancel</button>
+       </form>
+</div>
+{% endblock %}
+{% block js %}
+    <script>
+    function goBack() {
+        window.history.back();
+    }
+   </script>
+{% endblock %}

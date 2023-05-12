@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'apps.news.apps.NewsConfig',
     'apps.members.apps.MembersConfig',
     'apps.publication.apps.PublicationConfig',
-
+    'apps.dashboard.apps.DashboardConfig',
     'apps.proposal.apps.ProposalConfig',
+
+    # rich text
     'ckeditor',
 
     # filer
@@ -191,10 +193,8 @@ XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
 # Filer
 FILER_ENABLE_PERMISSIONS = True
 
-# Login required
-LOGIN_URL = '/administration'
 # Login redirect
-LOGIN_REDIRECT_URL='/proposal'
+LOGIN_REDIRECT_URL='/'
 
 # django-allauth
 SITE_ID = 1
@@ -202,6 +202,8 @@ SITE_ID = 1
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_UNIQUE = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 
 # crispy-bootstrap5

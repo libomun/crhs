@@ -1,16 +1,17 @@
-{% extends "members/member_base.html" %}
+{% extends "home/base.html" %}
 {% load static %}
 {% load readmore %}
-{% block member %}
+{% block content %}
 <div class="container mt-3">
   <!-- Stack the columns on mobile by making one full-width and the other half-width -->
   <div class="row">
     <div class="col-md-8">
-        <h3>{{ object.first_name}} {{ object.last_name }}</h3>
-        <h6>{{ object.title }} | {{ object.affiliation }}</h6>
-        <p>Email: {{ object.email }}</p>
-        <p>Phone: {{ object.phone_num }}</p>
-        <p>Fax: {{ object.fax }}</p>
+        <h4>{{ object.first_name}} {{ object.last_name }}</h4>
+        <p>{{ object.title }} | {{ object.affiliation }}</p>
+        <p>Email: {{ object.email}}</p>
+        <p>Phone: {{ object.phone }}</p>
+        <p>Address: {{ object.office_address }}</p>
+        <p>External Link: {{ object.external_link }}</p>
     </div>
     <div class="col-6 col-md-4">
         <img src="{{ object.profile_pic.url }}" class="rounded float-end" alt="..." style="max-width: 100%;">
@@ -18,12 +19,12 @@
   </div>
   <div>
       <hr>
-      <h4>About me</h4>
-      <p>{{ object.about_me|safe }} </p>
+      <h4>Bio</h4>
+      <p>{{ object.bio|safe }} </p>
   </div>
    <div>
        {% if object.publishedarticles_set.all %}
-            <h4> publication</h4>
+            <h5> publication</h5>
                {% for p in object.publishedarticles_set.all %}
                    {% if p.is_published is True %}
                       <hr>
@@ -38,9 +39,9 @@
        {% endif %}
     </div>
     <div>
-       {% if object.publishedpresentations_set.all%}
-            <h4> presentation</h4>
-               {% for p in object.publishedpresentations_set.all %}
+       {% if object.presentations_set.all%}
+            <h5> presentation</h5>
+               {% for p in object.presentations_set.all %}
                   {% if p.is_published is True %}
                       <hr>
                        <p><a href="{% url 'publication:pre_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
@@ -53,9 +54,9 @@
        {% endif %}
     </div>
     <div>
-        {% if object.publishedbooks_set.all %}
-           <h4>Books</h4>
-               {% for p in object.publishedbooks_set.all %}
+        {% if object.books_set.all %}
+           <h5>Books</h5>
+               {% for p in object.books_set.all %}
                    {% if p.is_published is True %}
                       <hr>
                        <p><a href="{% url 'publication:book_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
@@ -68,9 +69,9 @@
         {% endif %}
     </div>
   <div>
-      {% if object.publishedonline_set.all %}
-        <h4>Online</h4>
-           {% for p in object.publishedonline_set.all %}
+      {% if object.online_set.all %}
+        <h5>Online</h5>
+           {% for p in object.online_set.all %}
                {% if p.is_published is True %}
                   <hr>
                    <p><a href="{% url 'publication:online_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
