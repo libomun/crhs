@@ -35,27 +35,29 @@
                        <li><a class="dropdown-item" href="{% url 'publication:online_list' %}">Online</a></li>
                     </ul>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'news:news_list' %}">NEWS</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{% url 'members:all' %}" id="dropdown01" aria-expanded="false">MEMBERS</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                      <li><a class="dropdown-item" href="{% url 'members:faculty' %}">Faculty</a></li>
+                      <li><a class="dropdown-item" href="{% url 'members:staff' %}">Staff</a></li>
+                      <li><a class="dropdown-item" href="{% url 'members:ra' %}">Research Assistant</a></li>
+                      <li><a class="dropdown-item" href="{% url 'members:graduate' %}">Graduate</a></li>
+                      <li><a class="dropdown-item" href="{% url 'members:undergrad' %}">Undergraduate</a></li>
+                      <li><a class="dropdown-item" href="{% url 'members:postdoc' %}">Postdoctoral Researcher</a></li>
+                      <li><a class="dropdown-item" href="{% url 'members:alumni' %}">Alumni</a></li>
+                    </ul>
+                <li class="nav-item">
+                 <a class="nav-link" href="{% url 'news:news_list' %}">NEWS</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'members:index' %}">OUR PEOPLE</a>
-              </li>
-
-{#            <div class="admin d-flex">#}
-{#                <a class="nav-link" href="{% url 'home:administration'  %}">Center for Rural Health Studies</a>#}
-{#            </div>#}
             </ul>
             <ul class="navbar-nav">
              {% if request.user.is_authenticated %}
                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle " href="{% url 'publication:book_list'  %}" id="dropdown02" aria-expanded="false">Account</a>
+                    <a class="nav-link dropdown-toggle " href="{% url 'dashboard:dashboard_base'  %}" id="dropdown02" aria-expanded="false">Welcome {{ request.user.first_name }} {{ request.user.last_name }}</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown02">
                       {% if request.user.is_staff %}
-                      <li><a class="dropdown-item" href="{% url 'home:administration'  %}">Center for Rural Health Studies</a></li>
+                      <li><a class="dropdown-item" href="{% url 'home:administration'  %}">Administration</a></li>
                       {% endif %}
-                      <li><a class="dropdown-item" href="{% url 'proposal:proposal_all' %}">My Proposal</a></li>
-                      <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Change password</a></li>
                       <li><a class="dropdown-item" href="{% url 'account_logout' %}">Log out</a></li>
                     </ul>
               </li>
@@ -84,6 +86,7 @@
 
   <!-- JavaScript -->
     <script  src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script  src="{% static 'js/sidebars.js' %}"></script>
     {% block js %}{% endblock %}
 </body>
 </html>
