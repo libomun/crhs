@@ -3,7 +3,6 @@
 {% load crispy_forms_tags %}
 {% block dashboard %}
 <div class="container">
-  <!-- Stack the columns on mobile by making one full-width and the other half-width -->
 <h2>My profile</h2>
 <hr>
   <div class="row">
@@ -26,33 +25,5 @@
   </div>
 <hr>
 <a href="{% url 'dashboard:profile_edit' %}" class="btn btn-sm btn-primary">Update my profile</a>
-{#<!-- Button trigger modal -->#}
-{#<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">#}
-{#  Update your profile#}
-{#</button>#}
-
-{#<!-- Modal -->#}
-{#<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-{#  <div class="modal-dialog">#}
-{#    <div class="modal-content">#}
-{#      <div class="modal-header">#}
-{#        <h5 class="modal-title" id="exampleModalLabel">Update your profile</h5>#}
-{#        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
-{#      </div>#}
-{#      <div class="modal-body">#}
-{#        <form action="{% url 'dashboard:profile' %}" method="POST"  enctype="multipart/form-data">#}
-{#            {% csrf_token %}#}
-{#            <img class="img-thumbnail" src={{ profile.profile_pic.url }}>#}
-{#            {{ form|crispy}}#}
-{#            <div class="modal-footer">#}
-{#            <button type='submit' class="btn btn-primary">Update</button>#}
-{#            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>#}
-{#           </div>#}
-{#       </form>#}
-{#      </div>#}
-{#  </div>#}
-{#</div>#}
-{#</div>#}
-
 </div>
 {% endblock %}

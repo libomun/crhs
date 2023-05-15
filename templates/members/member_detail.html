@@ -2,7 +2,7 @@
 {% load static %}
 {% load readmore %}
 {% block content %}
-<div class="container mt-3">
+<div class="container mt-5">
   <!-- Stack the columns on mobile by making one full-width and the other half-width -->
   <div class="row">
     <div class="col-md-8">
@@ -23,9 +23,9 @@
       <p>{{ object.bio|safe }} </p>
   </div>
    <div>
-       {% if object.publishedarticles_set.all %}
-            <h5> publication</h5>
-               {% for p in object.publishedarticles_set.all %}
+       {% if object.articles_set.all %}
+            <h5>Articles</h5>
+               {% for p in object.articles_set.all %}
                    {% if p.is_published is True %}
                       <hr>
                        <p><a href="{% url 'publication:article_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
@@ -40,7 +40,7 @@
     </div>
     <div>
        {% if object.presentations_set.all%}
-            <h5> presentation</h5>
+            <h5>Presentation</h5>
                {% for p in object.presentations_set.all %}
                   {% if p.is_published is True %}
                       <hr>

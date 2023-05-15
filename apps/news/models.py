@@ -13,6 +13,7 @@ class News(models.Model):
     news_content = RichTextField(blank=True, null=True)
     cover_img = models.ImageField("cover image", upload_to='news/')
     is_publish = models.BooleanField("publish", default=True)
+    is_headline = models.BooleanField("headline", default=False)
 
     def __str__(self):
         return self.title

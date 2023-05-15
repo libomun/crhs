@@ -10,18 +10,7 @@ from django.views import generic
 @login_required
 def dashboard_base(request):
     profile = Members.objects.get(user=request.user)
-    # proposals = Proposal.objects.filter(Q(creator=request.user) | Q(co_pi=request.user)).distinct()
-    # draft_count = proposals.filter(status=Proposal.DRAFT).count()
-    # requiring_attention_count = proposals.filter(status=Proposal.REQUIRING_ATTENTION).count()
-    # under_review_count = proposals.filter(status=Proposal.UNDER_REVIEW).count()
-    # post_review_count = proposals.filter(status=Proposal.POST_REVIEW).count()
-    # withdrawn_count = proposals.filter(status=Proposal.WITHDRAWN).count()
     return render(request, 'dashboard/dashboard_base.html', {'profile': profile})
-                                                  # 'draft_count': draft_count,
-                                                  # 'requiring_attention_count': requiring_attention_count,
-                                                  # 'under_review_count': under_review_count,
-                                                  # 'post_review_count': post_review_count,
-                                                  # 'withdrawn_count': withdrawn_count})
 
 
 def my_article(request):
@@ -45,7 +34,7 @@ def my_book(request):
         book = Members.objects.get(user=request.user)
     except Members.DoesNotExist:
         book = None
-    return render(request, 'dashboard/my_book.html', {'article': book})
+    return render(request, 'dashboard/my_book.html', {'book': book})
 
 
 def my_online(request):
@@ -78,9 +67,10 @@ def profile_edit(request):
             user.last_name = request.POST['last_name']
             user.save()
             form.save()
-            return redirect('dashboard:dashboard_base',)
+            return redirect('dashboard:profile',)
     context = {
         'form': form,
+        'profile': member
     }
 
     return render(request, 'dashboard/profile_edit.html', context)

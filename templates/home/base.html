@@ -20,12 +20,15 @@
     <header>
       <nav class="navbar navbar-expand-md fixed-top bg-white">
         <div class="container">
-          <a class="navbar-brand" href="{% url 'home:index'%}"><img src="{% static 'img/logo.jpeg' %}" alt="" width="50" height="30" class="d-inline-block align-text-top"></a>
+          <a class="navbar-brand" href="{% url 'home:index'%}"><img src="{% static 'img/logo1.png' %}" alt="" width="70" height="50" class="d-inline-block align-text-top"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                 <a class="nav-link" href="{% url 'home:index' %}">HOME</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" aria-expanded="false">PUBLICATION</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown01">
@@ -34,7 +37,7 @@
                       <li><a class="dropdown-item" href="{% url 'publication:book_list' %}">Books/Books Chapter</a></li>
                        <li><a class="dropdown-item" href="{% url 'publication:online_list' %}">Online</a></li>
                     </ul>
-              </li>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{% url 'members:all' %}" id="dropdown01" aria-expanded="false">MEMBERS</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown01">
@@ -46,21 +49,23 @@
                       <li><a class="dropdown-item" href="{% url 'members:postdoc' %}">Postdoctoral Researcher</a></li>
                       <li><a class="dropdown-item" href="{% url 'members:alumni' %}">Alumni</a></li>
                     </ul>
+                </li>
                 <li class="nav-item">
                  <a class="nav-link" href="{% url 'news:news_list' %}">NEWS</a>
-              </li>
+                </li>
             </ul>
             <ul class="navbar-nav">
              {% if request.user.is_authenticated %}
                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle " href="{% url 'dashboard:dashboard_base'  %}" id="dropdown02" aria-expanded="false">Welcome {{ request.user.first_name }} {{ request.user.last_name }}</a>
+                    <a class="nav-link dropdown-toggle " href="#" id="dropdown02" aria-expanded="false">Welcome {{ request.user.first_name }} {{ request.user.last_name }}</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown02">
+                      <li><a class="dropdown-item" href="{% url 'dashboard:profile'  %}">Account</a></li>
                       {% if request.user.is_staff %}
                       <li><a class="dropdown-item" href="{% url 'home:administration'  %}">Administration</a></li>
                       {% endif %}
                       <li><a class="dropdown-item" href="{% url 'account_logout' %}">Log out</a></li>
                     </ul>
-              </li>
+               </li>
              {% else %}
                   <li class="nav-item">
                     <a class="nav-link" href="{% url "account_login" %}">Login in</a>

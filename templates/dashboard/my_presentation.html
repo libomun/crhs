@@ -6,7 +6,7 @@
       <div>
        {% if presentation.presentations_set.all%}
             <h2> presentation</h2>
-               {% for p in article.presentations_set.all %}
+               {% for p in presentation.presentations_set.all %}
                   {% if p.is_published is True %}
                       <hr>
                        <p><a href="{% url 'publication:pre_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>

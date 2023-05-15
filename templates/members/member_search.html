@@ -2,13 +2,15 @@
 {% load static %}
 {% block content %}
      <div class="container mt-5">
+         <h2>Search Results</h2>
+          <hr>
         <div class="row row-cols-3">
             {% for obj in page_obj %}
               <div class="col">
                 <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
                     <image xlink:href="{{ obj.profile_pic.url }}" x="0" y="0" height="100%" width="100%" ></image>
                 </svg>
-                {% if obj.is_alumni %}
+                {% if obj.role == "alumni" %}
                   <h3 class="fw-normal"><a class="link-dark " href="{% url 'members:alumni_detail' obj.id%} ">{{ obj.first_name}} {{ obj.last_name}}</a></h3>
                 {% else %}
                   <h3 class="fw-normal"><a class="link-dark " href="{% url 'members:member_detail' obj.id%} ">{{ obj.first_name}} {{ obj.last_name}}</a></h3>

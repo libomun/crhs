@@ -1,7 +1,13 @@
 {% extends "home/base.html" %}
 <!--Nest admin page in the home page-->
 {% block content %}
-<div class="container-fluid mt-2">
-  <iframe scrolling="no" src="http://127.0.0.1:8000/admin/" height="2000px", width="100%" onload="window.parent.parent.scrollTo(0,0)"></iframe>
+<div class="container-fluid mt-5">
+  <iframe id="myIframe" scrolling="no" src="http://127.0.0.1:8000/admin/" width="100%" onload="resizeIframe(this); window.parent.parent.scrollTo(0,0)"></iframe>
 </div>
+
+<script>
+function resizeIframe(obj) {
+  obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+}
+</script>
 {% endblock %}

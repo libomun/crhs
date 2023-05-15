@@ -1,51 +1,9 @@
 {% extends "home/base.html" %}
 {% load static %}
 {% block content %}
-<style>
-    ul.nav {
-        margin-top: 40px;
-      }
-    .nav-item a{
-      color:grey;
-    }
-
-      .nav-link {
-          padding: 12px;
-    }
-</style>
 <!-- Side navigation -->
-<div class="container-fluid mt-4">
-    <div class="row">
-       <div class="col-3">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'members:all' %}">All</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'members:faculty' %}">Faculty</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'members:staff' %}">Staff</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'members:ra' %}">Research Assistant</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'members:graduate' %}">Graduate Students</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'members:undergrad' %}">Undergraduate Students</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'members:postdoc' %}">Postdoctoral Researcher</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'members:alumni' %}">Alumni</a>
-              </li>
-            </ul>
-        </div><!-- End side navigation -->
+<div class="container mt-5">
 
-        <div class = 'col-9'>
             <form class="d-flex mt-3" role="search" action="{% url 'members:search' %}" method="get">
                 <input class="myInput form-control me-2" type="text" placeholder="Search" aria-label="Search" name="q", required="required"/>
                 <button class="myBtn btn btn btn-outline-primary" type="submit">Search</button>
@@ -54,8 +12,6 @@
            {% block member %}
            {% endblock %}
 
-        </div>
-    </div>
 </div>
 {% endblock content %}
 {% block js %}

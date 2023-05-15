@@ -194,7 +194,7 @@ XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
 FILER_ENABLE_PERMISSIONS = True
 
 # Login redirect
-LOGIN_REDIRECT_URL='/'
+LOGIN_REDIRECT_URL = '/'
 
 # django-allauth
 SITE_ID = 1
@@ -204,6 +204,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_SESSION_REMEMBER = False
+ACCOUNT_FORMS = {'signup': 'apps.members.forms.MyCustomSignupForm'}
 
 
 # crispy-bootstrap5

@@ -1,7 +1,7 @@
 {% extends "home/base.html" %}
 {% load static %}
 {% block content %}
-<div class = "container">
+<div class = "container mt-5">
 <!-- Select news type option and search rural360 news bar-->
     <div class="row mt-4">
        <div>
@@ -26,7 +26,7 @@
               <div class="card-body">
                 <h5 class="card-title"><a href="{% url 'news:news_detail' news.id %}" style="color:#3C4245">{{ news.title }}</a></h5>
                 <p class="card-text"><small class="text-muted">{{ news.author}}|{{ news.published_date| date:"F d, Y" }} </small></p>
-                <p class="card-text">{{news.news_content|truncatewords:30|striptags }}</p>
+                <p class="card-text">{{news.news_content|truncatewords:30|safe }}</p>
               </div>
             </div>
           </div>

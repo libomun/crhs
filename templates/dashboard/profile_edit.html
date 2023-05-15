@@ -7,9 +7,9 @@
          <hr>
         <form  method="POST"  enctype="multipart/form-data">
             {% csrf_token %}
-            <img class="img-thumbnail" src={{ profile.profile_pic.url }}>
+            <img style="width: 200px; height: 200px;" class="img-thumbnail" src={{ profile.profile_pic.url }}>
             {{ form.media}}
-            {{ form|crispy}}
+             {{ form.as_p}}
             <button type='submit' class="btn btn-primary">Update</button>
             <button type="button" class="btn btn-secondary" onclick="goBack()">Cancel</button>
        </form>
