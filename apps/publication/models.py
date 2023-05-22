@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from apps.members.models import Members
 
@@ -5,6 +6,7 @@ from apps.members.models import Members
 # Published Research paper model
 class Articles(models.Model):
     title = models.TextField()
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     main_authors = models.TextField()
     other_authors = models.TextField(blank=True, null=True)
     author_list = models.ManyToManyField(Members)
@@ -31,6 +33,7 @@ class Articles(models.Model):
 # Published presentation model
 class Presentations(models.Model):
     title = models.TextField()
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     main_authors = models.TextField()
     other_authors = models.TextField("collaborative authors", blank=True, null=True)
     author_list = models.ManyToManyField(Members)
@@ -73,6 +76,7 @@ class Books(models.Model):
 
     isbn = models.CharField(max_length=30, unique=True)
     title = models.TextField()
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     main_authors = models.TextField()
     other_authors = models.TextField(blank=True, null=True)
     author_list = models.ManyToManyField(Members)
@@ -80,7 +84,7 @@ class Books(models.Model):
     introduction = models.TextField()
     external_link = models.URLField(blank=True, null=True)
     archive = models.FileField(upload_to='publication/books/archive', blank=True, null=True)
-    picture = models.FileField("Book Cover", upload_to='publication/books/picture')
+    picture = models.ImageField("Book Cover", upload_to='publication/books/picture')
     categories = models.CharField(max_length=250)
     is_rural360 = models.BooleanField("Rural360")
     is_6for6 = models.BooleanField("6for6")
@@ -99,6 +103,7 @@ class Books(models.Model):
 # Published online model
 class Online(models.Model):
     title = models.TextField()
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     main_authors = models.TextField()
     other_authors = models.TextField(blank=True, null=True)
     date = models.DateField(auto_now=False, auto_now_add=False)

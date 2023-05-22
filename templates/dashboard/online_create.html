@@ -1,0 +1,22 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css%}
+    <style>
+           input, select {width: 100%}
+    </style>
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+<h2>Create Online</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form|crispy}}
+    <button type="submit" class="btn btn-primary">Create Online</button>
+  </form>
+</div>
+
+
+
+{% endblock %}

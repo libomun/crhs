@@ -358,3 +358,5 @@ class OnlineSearchView(generic.ListView):
         context['check_6for6'] = self.request.GET.get('check_6for6')
         context['check_surgecon'] = self.request.GET.get('check_surgecon')
         return context
+
+

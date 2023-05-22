@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from ckeditor.fields import RichTextField
 
@@ -27,7 +28,9 @@ class News(models.Model):
 # Comment model
 class Comment(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments', blank=True, null=True)
     body = models.TextField('comment')
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:

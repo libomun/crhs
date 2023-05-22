@@ -16,8 +16,8 @@
       {% for proposal in proposals %}
         <tr>
           <td>{{ proposal.title }}</td>
-          <td>{{ proposal.created_at|date:"SHORT_DATETIME_FORMAT" }}</td>
-          <td>{{ proposal.updated_at|date:"SHORT_DATETIME_FORMAT" }}</td>
+          <td>{{ proposal.created_at|date:"d/m/Y"}}</td>
+          <td>{{ proposal.updated_at|date:"d/m/Y"}}</td>
           <td>
           </td>
         </tr>

@@ -1,0 +1,49 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+{% block dashboard %}
+<div class="container">
+  <h2>Online</h2>
+  <hr>
+  <a href="{% url "dashboard:online_create"%}" class="btn btn-primary mb-3">Create Online</a>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+       {% if online.online_set.all%}
+            {% for p in online.online_set.all %}
+                {% if p.is_published is True %}
+                      <tr>
+                      <td style="width: 600px;"> {{ p.title }}</td>
+                      <td>{{ p.date|date:"Y"}}</td>
+                      {% if request.user == p.creator %}
+                      <td>creator</td>
+                      {% else %}
+                      <td>member</td>
+                      {% endif %}
+                      <td>
+                        {% if request.user == p.creator %}
+                          <a href="{% url "dashboard:online_edit" p.id %}" class="btn btn-sm btn-primary">Edit</a>
+                          <a href="{% url "dashboard:online_delete" p.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        {% else %}
+                           <a href="{% url "dashboard:online_edit" p.id %}" class="btn btn-sm btn-primary">Edit</a>
+                        {% endif %}
+                      </td>
+                    </tr>
+                {% endif %}
+            {% empty %}
+                    <tr>
+                      <td colspan="4">No online found</td>
+                    </tr>
+            {% endfor %}
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+

@@ -2,31 +2,56 @@
 {% load static %}
 <!--Shows news details-->
 {% block content %}
-<div class="container">
+<style>
+    .reply-section {
+        line-height: 1;
+    }
+</style>
+<div class="container mt-5">
     <div class="card mt-4 mb-3">
       <div class="card-body">
-        <h1>{{ object.title }}</h1>
-        <p class=" text-muted">{{ object.author }} {% if object.external_link %}<a href="{{ object.external_link }}">{{ object.affiliation }}</a> {% else %} {{ object.affiliation }}{% endif %}| {{ object.published_date| date:"F d, Y"}}</p>
-        <p class="card-text ">{{ object.news_content | safe }}</p>
+        <h1>{{ news.title }}</h1>
+        <p class=" text-muted">{{ news.author }} {% if news.external_link %}<a href="{{ news.external_link }}">{{ news.affiliation }}</a> {% else %} {{ news.affiliation }}{% endif %}| {{ news.published_date| date:"F d, Y"}}</p>
+        <p class="card-text ">{{ news.news_content | safe }}</p>
       </div>
     </div>
+
     <div>
         <br/>
         <h5>Comments</h5>
         <hr>
-        {% if not news.comments.all %}
-            <p> No comments</p>
-           <a href="{% url 'news:add_comment' object.id %}">Add a comment</a>
+        {% if not comments %}
+            <p> No comments yet.</p>
+            <a href="{% url 'news:add_comment' news.pk %}">Add a comment</a>
         {% else %}
-            {% for comment in news.comments.all %}
-               <strong> {{ user.last_name }} {{ user.first_name }} </strong>  <small> {{ comment.created_date | timesince }} ago </small>
-               <br/>
-                <p> {{ comment.body }}</p>
-               <br/>
+            {% for comment in comments %}
+                <div>
+                    <strong>{{ comment.user.last_name }} {{ comment.user.first_name }}</strong>
+                    <small>{{ comment.created_date | timesince }} ago</small>
+                    <p>{{ comment.body }}
+                     {% if user == comment.user %}
+                        <a href="{% url 'news:delete_comment' comment.pk %}" style="color:#dc3444;">delete</a>
+                     {% endif %}
+                        <a href="{% url 'news:create_reply' news.pk comment.pk%}" style="color:#2fd2f2;">Reply</a>
+                    </p>
+                </div>
+                {% for reply in comment.replies.all %}
+                    <div class="reply-section" style="margin-left: 30px; padding-top:0px; padding-bottom:0px;">
+                        <small><strong>{{ reply.user.last_name }} {{ reply.user.first_name }}</strong></small>
+                        <small>{{ reply.created_date | timesince }} ago</small>
+                        <small><p>{{ reply.body }}
+                            {% if user == reply.user %}
+                               <a  href="{% url 'news:delete_comment' reply.pk %}" style="color:#dc3444;">delete</a>
+                            {% endif %}
+                        </p></small>
+                    </div>
+                {% endfor %}
             {% endfor %}
-            <a href="{% url 'news:add_comment' object.id %}">Add a comment</a>
+            <hr>
+            <a href="{% url 'news:add_comment' news.pk %}">Add a comment</a>
         {% endif %}
     </div>
+
 </div>
 {% endblock content %}
 {% block js %}

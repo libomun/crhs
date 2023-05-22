@@ -6,7 +6,7 @@
         <div class="mt-5">
             <p><a href="{% url 'publication:pre_detail' obj.id %}" style="color:#008DC9 ; font-size:23px; text-decoration:none ">{{ obj.title|highlight_search:query|safe}}</a></p>
             {% for m in obj.author_list.all %}
-                {% if m.member_number|get_digit:"4" != 8 %}
+                {% if m.role != "other" %}
                     <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name|highlight_search:query|safe}}{{ m.last_name|highlight_search:query|safe}}, </a>
                 {% else %}
                     {{ m.first_name|highlight_search:query|safe}}{{ m.last_name|highlight_search:query|safe}},

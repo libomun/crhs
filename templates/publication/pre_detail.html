@@ -7,7 +7,7 @@
         <h2 style="font-weight: bold">{{ object.title}}</h2>
         <p>
             {% for m in object.author_list.all %}
-                {% if m.member_number|get_digit:"4" != 8 %}
+                {% if m.role != "other" %}
                     <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name}}{{ m.last_name }}, </a>
                 {% else %}
                     {{ m.first_name}}{{ m.last_name }},

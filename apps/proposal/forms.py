@@ -85,5 +85,5 @@ class AppendicesForm(forms.ModelForm):
         fields = ('name', 'attachment')
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'attachment': forms.FileInput(attrs={'class': 'form-control-file'}),
+            'attachment': forms.FileInput(attrs={'class': 'form-control'}),
         }
