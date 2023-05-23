@@ -10,8 +10,7 @@ class ArticlesForm(forms.ModelForm):
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'main_authors': forms.TextInput(attrs={'class': 'form-control'}),
-            'other_authors': forms.TextInput(attrs={'class': 'form-control'}),
+            'co_editor': s2forms.Select2MultipleWidget(attrs={'data-maximum-selection-length': 100}),
             'author_list': s2forms.Select2MultipleWidget(attrs={'data-maximum-selection-length': 100}),
             'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'doi': forms.TextInput(attrs={'class': 'form-control'}),
@@ -29,8 +28,7 @@ class PresentationsForm(forms.ModelForm):
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'main_authors': forms.TextInput(attrs={'class': 'form-control'}),
-            'other_authors': forms.TextInput(attrs={'class': 'form-control'}),
+            'co_editor': s2forms.Select2MultipleWidget(attrs={'data-maximum-selection-length': 100}),
             'author_list': s2forms.Select2MultipleWidget(attrs={'data-maximum-selection-length': 100}),
             'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'abstract': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
@@ -49,8 +47,7 @@ class BooksForm(forms.ModelForm):
         widgets = {
             'isbn': forms.TextInput(attrs={'class': 'form-control'}),
             'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'main_authors': forms.TextInput(attrs={'class': 'form-control'}),
-            'other_authors': forms.TextInput(attrs={'class': 'form-control'}),
+            'co_editor': s2forms.Select2MultipleWidget(attrs={'data-maximum-selection-length': 100}),
             'author_list': s2forms.Select2MultipleWidget(attrs={'data-maximum-selection-length': 100}),
             'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'introduction': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
@@ -68,8 +65,7 @@ class OnlineForm(forms.ModelForm):
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'main_authors': forms.TextInput(attrs={'class': 'form-control'}),
-            'other_authors': forms.TextInput(attrs={'class': 'form-control'}),
+            'co_editor': s2forms.Select2MultipleWidget(attrs={'data-maximum-selection-length': 100}),
             'author_list': s2forms.Select2MultipleWidget(attrs={'data-maximum-selection-length': 100}),
             'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'abstract': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),

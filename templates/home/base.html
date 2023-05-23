@@ -20,7 +20,7 @@
     <header>
       <nav class="navbar navbar-expand-md fixed-top bg-white">
         <div class="container">
-          <a class="navbar-brand" href="{% url 'home:index'%}"><img src="{% static 'img/logo1.png' %}" alt="" width="70" height="50" class="d-inline-block align-text-top"></a>
+          <a class="navbar-brand" href="{% url 'home:index'%}"><img src="{% static 'img/logo5.png' %}" alt="" width="50" height="50" class="d-inline-block align-text-top"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -39,8 +39,9 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{% url 'members:all' %}" id="dropdown01" aria-expanded="false">MEMBERS</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" aria-expanded="false">MEMBERS</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                      <li><a class="dropdown-item" href="{% url 'members:all' %}">All</a></li>
                       <li><a class="dropdown-item" href="{% url 'members:faculty' %}">Faculty</a></li>
                       <li><a class="dropdown-item" href="{% url 'members:staff' %}">Staff</a></li>
                       <li><a class="dropdown-item" href="{% url 'members:ra' %}">Research Assistant</a></li>

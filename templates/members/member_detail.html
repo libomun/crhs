@@ -23,9 +23,9 @@
       <p>{{ object.bio|safe }} </p>
   </div>
    <div>
-       {% if object.articles_set.all %}
+       {% if object.article_author_list.all %}
             <h5>Articles</h5>
-               {% for p in object.articles_set.all %}
+               {% for p in object.article_author_list.all %}
                    {% if p.is_published is True %}
                       <hr>
                        <p><a href="{% url 'publication:article_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
@@ -39,9 +39,9 @@
        {% endif %}
     </div>
     <div>
-       {% if object.presentations_set.all%}
+       {% if object.presentation_author_list.all%}
             <h5>Presentation</h5>
-               {% for p in object.presentations_set.all %}
+               {% for p in object.presentation_author_list.all %}
                   {% if p.is_published is True %}
                       <hr>
                        <p><a href="{% url 'publication:pre_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
@@ -54,9 +54,9 @@
        {% endif %}
     </div>
     <div>
-        {% if object.books_set.all %}
+        {% if object.book_author_list.all %}
            <h5>Books</h5>
-               {% for p in object.books_set.all %}
+               {% for p in object.book_author_list.all %}
                    {% if p.is_published is True %}
                       <hr>
                        <p><a href="{% url 'publication:book_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>
@@ -69,9 +69,9 @@
         {% endif %}
     </div>
   <div>
-      {% if object.online_set.all %}
+      {% if object.online_author_list.all %}
         <h5>Online</h5>
-           {% for p in object.online_set.all %}
+           {% for p in object.online_author_list.all %}
                {% if p.is_published is True %}
                   <hr>
                    <p><a href="{% url 'publication:online_detail' p.id %}" style="color:#008DC9 ; font-size:20px; text-decoration:none ">{{ p.title }}</a></p>

@@ -19,7 +19,7 @@
               <div class="card-body">
                 <h5 class="card-title"><a href="{% url 'news:news_detail' news.id %}" style="color:#3C4245">{{ news.title | highlight_search:query|safe}}</a></h5>
                 <p class="card-text"><small class="text-muted">{{ news.author}}|{{ news.published_date| date:"F d, Y"}} </small></p>
-                <p class="card-text">{{news.news_content|truncatewords:30}}</p>
+                <p class="card-text">{{news.news_content|truncatewords:30|safe}}</p>
               </div>
             </div>
           </div>

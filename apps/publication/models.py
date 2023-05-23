@@ -6,10 +6,9 @@ from apps.members.models import Members
 # Published Research paper model
 class Articles(models.Model):
     title = models.TextField()
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
-    main_authors = models.TextField()
-    other_authors = models.TextField(blank=True, null=True)
-    author_list = models.ManyToManyField(Members)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True, related_name='article_creator')
+    co_editor = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='article_co_editor', blank=True)
+    author_list = models.ManyToManyField(Members, related_name='article_author_list')
     date = models.DateField(auto_now=False, auto_now_add=False)
     doi = models.CharField("DOI", max_length=100, unique=True)
     affiliation = models.TextField()
@@ -33,10 +32,9 @@ class Articles(models.Model):
 # Published presentation model
 class Presentations(models.Model):
     title = models.TextField()
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
-    main_authors = models.TextField()
-    other_authors = models.TextField("collaborative authors", blank=True, null=True)
-    author_list = models.ManyToManyField(Members)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True, related_name='presentation_creator')
+    co_editor = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='presentation_co_editor', blank=True)
+    author_list = models.ManyToManyField(Members, related_name='presentation_author_list')
     date = models.DateField(auto_now=False, auto_now_add=False)
     abstract = models.TextField()
     # three statues
@@ -76,10 +74,9 @@ class Books(models.Model):
 
     isbn = models.CharField(max_length=30, unique=True)
     title = models.TextField()
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
-    main_authors = models.TextField()
-    other_authors = models.TextField(blank=True, null=True)
-    author_list = models.ManyToManyField(Members)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True, related_name='book_creator')
+    co_editor = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='book_co_editor', blank=True)
+    author_list = models.ManyToManyField(Members, related_name='book_author_list')
     date = models.DateField(auto_now=False, auto_now_add=False)
     introduction = models.TextField()
     external_link = models.URLField(blank=True, null=True)
@@ -103,11 +100,10 @@ class Books(models.Model):
 # Published online model
 class Online(models.Model):
     title = models.TextField()
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
-    main_authors = models.TextField()
-    other_authors = models.TextField(blank=True, null=True)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True, related_name='online_creator')
+    co_editor = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='online_co_editor', blank=True)
     date = models.DateField(auto_now=False, auto_now_add=False)
-    author_list = models.ManyToManyField(Members)
+    author_list = models.ManyToManyField(Members, related_name='online_author_list')
     abstract = models.TextField()
     external_link = models.URLField(blank=True, null=True)
     is_rural360 = models.BooleanField("Rural360")

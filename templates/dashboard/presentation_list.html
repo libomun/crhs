@@ -15,8 +15,8 @@
       </tr>
     </thead>
     <tbody>
-       {% if presentation.presentations_set.all%}
-            {% for p in presentation.presentations_set.all %}
+       {% if presentation.presentation_author_list.all%}
+            {% for p in presentation.presentation_author_list.all %}
                 {% if p.is_published is True %}
                       <tr>
                       <td style="width: 600px;">{{ p.title }}</td>
@@ -30,8 +30,9 @@
                         {% if request.user == p.creator %}
                           <a href="{% url "dashboard:presentation_edit" p.id %}" class="btn btn-sm btn-primary">Edit</a>
                           <a href="{% url "dashboard:presentation_delete" p.id %}" class="btn btn-sm btn-danger">Delete</a>
-                        {% else %}
+                        {% elif request.user in p.co_editor.all %}
                            <a href="{% url "dashboard:presentation_edit" p.id %}" class="btn btn-sm btn-primary">Edit</a>
+                        {% else %}
                         {% endif %}
                       </td>
                     </tr>
