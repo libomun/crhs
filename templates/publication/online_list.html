@@ -7,7 +7,7 @@
         <p>
          {% for m in obj.author_list.all %}
             {% if m.role != "other" %}
-                <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name}}{{ m.last_name }}, </a>
+                <a style="color: darkgoldenrod; text-decoration: none;" href="{% url 'members:member_detail' m.id%}"> {{ m.first_name}} {{ m.last_name }}, </a>
             {% else %}
                 {{ m.first_name}}{{ m.last_name }},
             {% endif %}
