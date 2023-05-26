@@ -32,7 +32,7 @@
                      {% if user == comment.user %}
                         <a href="{% url 'news:delete_comment' comment.pk %}" style="color:#dc3444;">delete</a>
                      {% endif %}
-                        <a href="{% url 'news:create_reply' news.pk comment.pk%}" style="color:#2fd2f2;">Reply</a>
+                        <a href="{% url 'news:create_reply' news.pk comment.pk%}" style="color:#0d6efd;;">reply</a>
                     </p>
                 </div>
                 {% for reply in comment.replies.all %}
