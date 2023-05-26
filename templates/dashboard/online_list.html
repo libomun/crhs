@@ -19,12 +19,14 @@
             {% for p in online.online_author_list.all %}
                 {% if p.is_published is True %}
                       <tr>
-                      <td style="width: 600px;"> {{ p.title }}</td>
+                      <td style="width: 600px;"><a href="{% url 'publication:online_detail' p.id %}">{{ p.title }}</a></td>
                       <td>{{ p.date|date:"Y"}}</td>
                       {% if request.user == p.creator %}
-                      <td>creator</td>
+                        <td>creator</td>
+                      {% elif request.user in p.co_editor.all %}
+                        <td>co_editor</td>
                       {% else %}
-                      <td>member</td>
+                        <td>member</td>
                       {% endif %}
                       <td>
                         {% if request.user == p.creator %}

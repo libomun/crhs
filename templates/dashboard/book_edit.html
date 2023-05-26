@@ -12,12 +12,12 @@
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.media }}
-    {{ form|cripsy }}
+    {{ form|crispy }}
     <hr>
-    {% if form.instance.archive.url %}
+    {% if form.instance.archive %}
         <p>Current archive: <a href="{{ form.instance.archive.url }}">{{ form.instance.archive.name }}</a></p>
     {% endif %}
-    {% if form.instance.picture.url %}
+    {% if form.instance.picture %}
        <p>Current picture: <a href="{{ form.instance.picture.url }}">{{ form.instance.picture.name }}</a></p>
     {% endif %}
     <button type="submit" class="btn btn-primary">Save Changes</button>

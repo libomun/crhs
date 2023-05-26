@@ -35,9 +35,9 @@ def article_create(request):
             article = form.save(commit=False)
             article.creator = request.user
             article.save()
-            # Get the selected users for each field
+            co_editor_users = form.cleaned_data['co_editor']
+            article.co_editor.set(co_editor_users)
             author_list_member = form.cleaned_data['author_list']
-            # Add the selected users to the proposal object
             article.author_list.set(author_list_member)
             messages.success(request, 'Article created successfully')
             return redirect('dashboard:article_list')
@@ -57,9 +57,9 @@ def article_edit(request, pk):
         if form.is_valid():
             article = form.save(commit=False)
             article.save()
-            # Get the selected users for each field
+            co_editor_users = form.cleaned_data['co_editor']
+            article.co_editor.set(co_editor_users)
             author_list_member = form.cleaned_data['author_list']
-            # Add the selected users to the proposal object
             article.author_list.set(author_list_member)
             messages.success(request, 'Article updated successfully')
             return redirect('dashboard:article_list')
@@ -90,14 +90,14 @@ def presentation_list(request):
 @login_required
 def presentation_create(request):
     if request.method == 'POST':
-        form = PresentationsForm(request.POST)
+        form = PresentationsForm(request.POST, request.FILES)
         if form.is_valid():
             presentation = form.save(commit=False)
             presentation.creator = request.user
             presentation.save()
-            # Get the selected users for each field
+            co_editor_users = form.cleaned_data['co_editor']
+            presentation.co_editor.set(co_editor_users)
             author_list_member = form.cleaned_data['author_list']
-            # Add the selected users to the proposal object
             presentation.author_list.set(author_list_member)
             messages.success(request, 'Presentation created successfully')
             return redirect('dashboard:presentation_list')
@@ -117,6 +117,8 @@ def presentation_edit(request, pk):
         if form.is_valid():
             presentation = form.save(commit=False)
             presentation.save()
+            co_editor_users = form.cleaned_data['co_editor']
+            presentation.co_editor.set(co_editor_users)
             author_list_member = form.cleaned_data['author_list']
             presentation.author_list.set(author_list_member)
             messages.success(request, 'Presentation updated successfully')
@@ -148,11 +150,13 @@ def book_list(request):
 @login_required
 def book_create(request):
     if request.method == 'POST':
-        form = BooksForm(request.POST)
+        form = BooksForm(request.POST, request.FILES)
         if form.is_valid():
             book = form.save(commit=False)
             book.creator = request.user
             book.save()
+            co_editor_users = form.cleaned_data['co_editor']
+            book.co_editor.set(co_editor_users)
             author_list_member = form.cleaned_data['author_list']
             book.author_list.set(author_list_member)
             messages.success(request, 'Book created successfully')
@@ -173,6 +177,8 @@ def book_edit(request, pk):
         if form.is_valid():
             book = form.save(commit=False)
             book.save()
+            co_editor_users = form.cleaned_data['co_editor']
+            book.co_editor.set(co_editor_users)
             author_list_member = form.cleaned_data['author_list']
             book.author_list.set(author_list_member)
             messages.success(request, 'Book updated successfully')
@@ -209,6 +215,8 @@ def online_create(request):
             online = form.save(commit=False)
             online.creator = request.user
             online.save()
+            co_editor_users = form.cleaned_data['co_editor']
+            online.co_editor.set(co_editor_users)
             author_list_member = form.cleaned_data['author_list']
             online.author_list.set(author_list_member)
             messages.success(request, 'Online created successfully')
@@ -225,17 +233,19 @@ def online_edit(request, pk):
     if not (request.user == online.creator or member in online.author_list.all()):
         raise PermissionDenied
     if request.method == 'POST':
-        form = BooksForm(request.POST, instance=online)
+        form = OnlineForm(request.POST, instance=online)
         if form.is_valid():
             online = form.save(commit=False)
             online.save()
+            co_editor_users = form.cleaned_data['co_editor']
+            online.co_editor.set(co_editor_users)
             author_list_member = form.cleaned_data['author_list']
             online.author_list.set(author_list_member)
             messages.success(request, 'Online updated successfully')
             return redirect('dashboard:online_list')
 
     else:
-        form = PresentationsForm(instance=online)
+        form = OnlineForm(instance=online)
     return render(request, 'dashboard/online_edit.html', {'form': form, 'online_id': pk})
 
 
