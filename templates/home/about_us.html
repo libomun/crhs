@@ -1,0 +1,34 @@
+{% extends 'home/base.html' %}
+{% load static %}
+<!--Shows news details-->
+{% block content %}
+<div class="container mt-5">
+  <div class="card mt-4 mb-3">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Rural 360</h1>
+          <p class="card-text">The Rural360 program is a rural research capacity-building program that provides funding, and research support to rural physicians with a research idea or project that aims to address community health needs in rural areas in Newfoundland, including those in Northern Newfoundland and Coastal Labrador.</p>
+          <p class="card-text">Rural 360 has symbolized an important partnership between the International Grenfell Association and Memorial University of Newfoundland. By engaging MUN researchers, students, staff, rural physicians, and community members, Rural 360 can facilitate high quality and applied research and increase social accountability by empowering community members to complete projects that will ultimately improve their healthcare.</p>
+        </div>
+        <div class="col-md-6">
+          <img src="{% static 'img/about_us1.jpg' %}" class="img-fluid" alt="Rural 360 Illustration">
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+          <img src="{% static 'img/about_us2.jpg' %}" class="img-fluid" alt="RuralDex Illustration">
+        </div>
+        <div class="col-md-6">
+          <h1>RuralDex</h1>
+          <p class="card-text">Rural Dex is a digital health platform that provides researchers with opportunities to develop themselves as health researchers, exchange research ideas and projects, and access support. This platform uses a Learning Health Systems approach to leverage IT advancements to create a dynamic network that can facilitate rural health research, and improvements to rural healthcare.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+{% block js %}
+{% endblock %}
