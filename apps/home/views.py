@@ -28,5 +28,10 @@ def index(request):
 
 
 # View function for admin page that nested in home page
+def about_us(request):
+    return render(request, 'home/about_us.html')
+
+
+# View function for admin page that nested in home page
 def administraion(request):
     return render(request, 'home/include_admin.html')
